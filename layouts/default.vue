@@ -1,62 +1,72 @@
 <template>
-  <div>
-    <Nuxt />
-  </div>
+  <section class="wrapper-page">
+    <Header :asideData="asideData" :nav="nav" class="header" />
+    <Navigation :nav="nav" />
+
+    <main class="app-page">
+      <transition name="fade" mode="out-in">
+        <Nuxt />
+      </transition>
+    </main>
+
+    <StaticFooter class="footer" />
+  </section>
 </template>
 
-<style>
-html {
-  font-family:
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
+<script>
+import Header       from '@/components/Header'
+import Navigation   from '@/components/Navigation'
+import StaticFooter from '@/components/StaticFooter'
+
+export default {
+  name: 'default',
+  components: { Header, Navigation, StaticFooter },
+  data: () => ({
+    asideData: { isOpen: false, },
+    nav: { isOpen: false, },
+  }),
+}
+</script>
+
+<style lang="scss" scoped>
+.header {
+  position: relative;
+}
+.app-page {
+  position: relative;
+  margin: 50px auto 50px;
+  max-width: 1200px;
+  padding: 0 30px;
+  z-index: 1;
+
+  @media screen and ( max-width: 560px ) {
+    height: auto;
+    margin-top: 32px;
+  }
+}
+.wrapper-page {
+  background:#0A0B11;
+  width: 100vw;
+  height: 100%;
+
+  @media screen and ( max-width: 560px ) {
+    height: auto;
+  }
+}
+.footer {
+  position: relative;
+  bottom: 10px;
+  padding-bottom: 20px;
+
+  @media screen and ( max-width: 560px ) {
+    position: relative;
+  }
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s ease;
 }
-
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
-
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>

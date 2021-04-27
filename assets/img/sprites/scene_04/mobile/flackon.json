@@ -1,0 +1,36 @@
+{"frames": {
+
+"flackon_0-min.png":
+{
+	"frame": {"x":0,"y":0,"w":198,"h":387},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":339,"y":44,"w":198,"h":387},
+	"sourceSize": {"w":768,"h":432}
+},
+"flackon_1-min.png":
+{
+	"frame": {"x":0,"y":387,"w":198,"h":387},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":339,"y":44,"w":198,"h":387},
+	"sourceSize": {"w":768,"h":432}
+},
+"flackon_2-min.png":
+{
+	"frame": {"x":0,"y":774,"w":198,"h":387},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":339,"y":44,"w":198,"h":387},
+	"sourceSize": {"w":768,"h":432}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "flackon.png",
+	"format": "RGBA8888",
+	"size": {"w":198,"h":1161},
+	"scale": "0.4",
+	"smartupdate": "$TexturePacker:SmartUpdate:e1b0c75bbd70c8ae5029aad83e0975fe:1e2deb1a594062bc24f7adf1ae36a2f0:e894d686dfc90dab2d675960db9c3ce1$"
+}
+}
