@@ -8,19 +8,16 @@
 <script>
 export default {
   name: 'AnimeScreenOne',
-  props: {
-    scroll: Number,
-    loaded: Boolean,
-    sprite_img: Image,
-    scrollpage: Object,
-    animationState: Object,
-  },
+  props: [
+    'scroll',
+    'loaded',
+    'scrollpage',
+    'sprite_img',
+    'animationState'
+  ],
   data: () => ({
     mouseX: 0,
     mouseY: 0,
-
-    width: window.innerWidth,
-    height: window.innerHeight,
 
     json_rotate: require('@/assets/img/sprites/scene_01/rotate.json'),
     parallaxInstance: '',
@@ -48,6 +45,16 @@ export default {
         return .7;
       }
     },
+    width: function() {
+      if ( process.browser ) {
+        return window.innerWidth
+      }
+    },
+    height: function() {
+      if ( process.browser ) {
+        return window.innerHeight
+      }
+    }, 
   },
   methods: {
     createScene() {
@@ -91,12 +98,14 @@ export default {
     onAssetsLoaded(frame_start = 0, frame_end = 1) {
       const frames = [];
       const childLength = this.app.stage.children.length;
+
       if ( this.scroll === 0 ) {
         if ( this.app.stage ) {
           for (let i = childLength - 1; i >= 0; i--) 
             {	this.app.stage.removeChild(this.app.stage.children[i]);
           };
         }
+
         if ( frame_start > frame_end ) {
           for ( let i = frame_start; i > frame_end; i-- ) {
             const val = i;
@@ -131,12 +140,6 @@ export default {
 
             this.app.stage.addChild(anim);
           }
-        }
-      } else {
-        if ( this.app.stage ) {
-          for (let i = childLength - 1; i >= 0; i--) 
-            {	this.app.stage.removeChild(this.app.stage.children[i]);
-          };
         }
       }
     },
@@ -183,7 +186,9 @@ export default {
         try {
           this.createScene();
         } catch (err) {
-          window.location.href = '/static'
+          if ( process.browser ) {
+            window.location.href = '/home'
+          }
         }
         
         document.addEventListener('mousemove', e => {
@@ -193,6 +198,10 @@ export default {
     },
     scroll() {
       if ( this.scroll === 1 ) {
+        const treshScene = document.querySelector('.scene-001');
+        if ( treshScene ) {
+          document.getElementById('main-scene').removeChild(treshScene);
+        }
         document.removeEventListener('mousemove', e => {
           this.getMouseX(e);
         })

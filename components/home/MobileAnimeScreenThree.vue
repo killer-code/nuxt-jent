@@ -21,8 +21,6 @@ export default {
     sprite_star: require('@/assets/img/sprites/scene_03/star.png'),
     startSmoke: false,
     startMol: false,
-    width: window.innerWidth,
-    height: window.innerHeight,
 
     warpSpeed: 0,
     isJump: false,
@@ -45,6 +43,16 @@ export default {
     sceneOffset: function() {
       const scene = document.querySelector('.mobile-scene-3');
       return scene.getBoundingClientRect().top;
+    },
+    width: function() {
+      if ( process.browser ) {
+        return window.innerWidth
+      }
+    },
+    height: function() {
+      if ( process.borwser ) {
+        return window.innerHeight
+      }
     },
     k: function() {
       if ( this.height < 640 ) {

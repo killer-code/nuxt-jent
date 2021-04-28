@@ -12,17 +12,11 @@
 export default {
   name: 'MobileAnimeScreenFour',
   data: () => ({
-    width: window.innerWidth,
     height: 400,
-    isMobile: window.innerWidth < 561,
-
     json_lines:   require('@/assets/img/sprites/scene_04/mobile/lines.json'),
-    // json_flackon: require('@/assets/img/sprites/scene_04/mobile/flackon.json'),
     sprite_img_line:    require('@/assets/img/sprites/scene_04/mobile/lines.webp'),
-    // sprite_img_flackon: require('@/assets/img/sprites/scene_04/mobile/flackon.png'),
 
     sheet_lines: '',
-    // sheet_flackon: '',
   }),
   computed: {
     app: function() {
@@ -34,6 +28,16 @@ export default {
         height: this.height,
       });
     },
+    width: function() {
+      if ( process.browser ) {
+        return window.innerWidth
+      }
+    },
+    isMobile: function() {
+      if ( process.browser ) {
+        return window.innerWidth < 561
+      }
+    },
   },
   methods: {
     createScene() {
@@ -41,18 +45,11 @@ export default {
       const self = this; 
 
       sequence.appendChild(self.app.view);
-      if ( self.app.loader.resources.image_flackon ) { // self.app.loader.resources.image_lines && 
+      if ( self.app.loader.resources.image_lines ) {
         self.app.loader
           .load((loader, resources) => {
             const lines = new this.$PIXI.Texture.from(this.sprite_img_line);
             self.sheet_lines  = new this.$PIXI.Spritesheet(lines, this.json_lines);
-
-            // const flackon = new this.$PIXI.Texture.from(this.sprite_img_flackon);
-            // self.sheet_flackon  = new this.$PIXI.Spritesheet(flackon, this.json_flackon);
-
-            // this.sheet_flackon.parse(() => {
-            //   this.onAssetsLoadedFlackon();
-            // })
           })
       } else {
         self.app.loader
@@ -61,17 +58,10 @@ export default {
           .load((loader, resources) => {
             const lines = new this.$PIXI.Texture.from(this.sprite_img_line);
             self.sheet_lines  = new this.$PIXI.Spritesheet(lines, this.json_lines);
-
-            // const flackon = new this.$PIXI.Texture.from(this.sprite_img_flackon);
-            // self.sheet_flackon  = new this.$PIXI.Spritesheet(flackon, this.json_flackon);
             
             this.sheet_lines.parse(() => {
               this.onAssetsLoadedNext();
             })
-
-            // this.sheet_flackon.parse(() => {
-            //   this.onAssetsLoadedFlackon();
-            // })
           })
       }
     },
@@ -103,26 +93,6 @@ export default {
       container.filters = [blurFilter];
       this.app.stage.addChild(container);
     },
-    // onAssetsLoadedFlackon() {
-    //   let frames = [];
-
-    //   for ( let i = 0; i <= 2; i++ ) {
-    //     const val = i;
-
-    //     frames.push(this.$PIXI.Texture.from(`flackon_${val}-min.png`));
-    //     const anim = new this.$PIXI.AnimatedSprite(frames);
-        
-    //     anim.x = this.app.screen.width / 2;
-    //     anim.y = this.app.screen.height / 2;
-    //     anim.anchor.set(.5);
-    //     anim.animationSpeed = .15;
-    //     anim.scale.set(.3, .3);
-    //     anim.loop = true;
-    //     anim.play();
-
-    //     this.app.stage.addChild(anim);
-    //   }
-    // },
   },
   mounted() {
     this.createScene();

@@ -2,7 +2,7 @@ export default {
   target: 'static',
 
   head: {
-    title: 'jent-v2',
+    title: 'Jent',
     htmlAttrs: {
       lang: 'ru'
     },
@@ -22,7 +22,11 @@ export default {
   ],
 
   plugins: [
+    '~/plugins/anime',
+    '~/plugins/parallax',
     '~/plugins/element-ui',
+    { src: '~/plugins/pixi', mode: 'client' },
+    { src: '~/plugins/fullpage', mode: 'client' },
   ],
 
   components: true,
@@ -32,6 +36,7 @@ export default {
 
   modules: [
     '@nuxtjs/axios',
+    'nuxt-fullpage.js',
   ],
 
   axios: {},

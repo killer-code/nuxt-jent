@@ -76,9 +76,13 @@
 
 export default {
   name: 'ScreenSix',
-  data: () => ({
-    isMobile: window.innerWidth < 561,
-  }),
+  computed: {
+    isMobile: function() {
+      if ( process.browser ) {
+        return window.innerWidth < 561
+      }
+    }
+  },
   mounted() {
     if ( this.isMobile ) {
       const scene = document.querySelector('.mobile-scene-6');

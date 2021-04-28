@@ -8,18 +8,15 @@
 <script>
 export default {
   name: 'AnimeScreenTwo',
-  props: {
-    scroll: Number,
-    loaded: Boolean,
-    sprite_img: Image,
-    scrollpage: Object,
-    animationState: Object,
-  },
+  props: [
+    'scroll',
+    'loaded',
+    'scrollpage',
+    'sprite_img',
+    'animationState'
+  ],
   data: () => ({
-    width: window.innerWidth,
-    height: window.innerHeight,
-
-    json_zilch:   require('@/assets/img/sprites/scene_02/pshick-2.json'),
+    json_zilch:  require('@/assets/img/sprites/scene_02/pshick-2.json'),
     sheet_zilch: '',
   }),
   computed: {
@@ -44,6 +41,16 @@ export default {
         return this.height / 1080;
       } else {
         return .7;
+      }
+    },
+    width: function() {
+      if ( process.browser ) {
+        return window.innerWidth
+      }
+    },
+    height: function() {
+      if ( process.browser ) {
+        return window.innerHeight
       }
     },
   },

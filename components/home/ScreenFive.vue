@@ -34,9 +34,13 @@ export default {
   name: 'ScreenFive',
   props: { offset: Number },
   components: { MobileAnimeScreenFive },
-  data: () => ({
-    isMobile: window.innerWidth < 561,
-  }),
+  computed: {
+    isMobile: function() {
+      if ( process.browser ) {
+        return window.innerWidth < 561
+      }
+    }
+  }
 }
 </script>
 

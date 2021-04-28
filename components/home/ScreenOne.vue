@@ -111,8 +111,14 @@ export default {
   props: ['asideData', 'getAsideData', 'loaded'],
   data: () => ({
     dialog: false,
-    isMobile: window.innerWidth < 561,
   }),
+  computed: {
+    isMobile: function() {
+      if ( process.browser ) {
+        return window.innerWidth < 561
+      }
+    }
+  },
   methods: {
     openAside(e) {
       const btnKey = e.target.parentElement.dataset.key;

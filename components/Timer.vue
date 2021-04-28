@@ -42,9 +42,13 @@
 export default {
   name: 'Timer',
   props: ['dialog', 'loaded'],
-  data: () => ({
-    isMobile: window.innerWidth < 561,
-  }),
+  computed: {
+    isMobile: function() {
+      if ( process.browser ) {
+        return window.innerWidth < 561;
+      }
+    }
+  },
   methods: {
     animeteTimer() {
       const block = document.querySelector('.timer'),

@@ -7,7 +7,6 @@ export default {
   name: 'MobileAnimeScreenFive',
   props: { offset: Number },
   data: () => ({
-    width: window.innerWidth,
     height: 400,
     json_neon: require('@/assets/img/sprites/scene_05/mobile/new-neon.json'),
     sprite_img: require('@/assets/img/sprites/scene_05/mobile/new-neon.jpg'),
@@ -30,6 +29,11 @@ export default {
     sceneOffset: function() {
       const scene = document.querySelector('.mobile-scene-5');
       return scene.getBoundingClientRect().top;
+    },
+    width: function() {
+      if ( process.browser ) {
+        return window.innerWidth
+      }
     },
     k: function() {
       if ( this.height < 640 ) {

@@ -103,8 +103,6 @@ export default {
   data: () => ({
     dialog: false,
   }),
-  computed: {
-  },
   methods: {
     openAside(e) {
       const btnKey = e.target.parentElement.dataset.key;
@@ -133,9 +131,6 @@ export default {
       this.openAside(e);
     },
   },
-  mounted() {
-    
-  }
 }
 </script>
 

@@ -34,10 +34,13 @@ export default {
   name: 'ScreenThree',
   props: { offset: Number },
   components: { MobileAnimeScreenThree },
-  data: () => ({
-    isMobile: window.innerWidth < 561,
-  }),
-  mounted() {}
+  computed: {
+    isMobile: function() {
+      if ( process.browser ) {
+        return window.innerWidth < 561
+      }
+    }
+  },
 }
 </script>
 

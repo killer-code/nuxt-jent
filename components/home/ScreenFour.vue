@@ -39,10 +39,12 @@ export default {
   name: 'ScreenFour',
   props: ['screen'],
   components: { MobileAnimeScreenFour },
-  data: () => ({
-    isMobile: window.innerWidth < 561,
-  }),
-  mounted() {
+  computed: {
+    isMobile: function() {
+      if ( process.browser ) {
+        return window.innerWidth < 561
+      }
+    }
   },
   methods: {
     animeteTimer() {

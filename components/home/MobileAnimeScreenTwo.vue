@@ -1,11 +1,5 @@
 <template>
-  <section class="mobile-scene-2">
-    <!-- <img v-if="!this.startAnimation" 
-      class="img_static"
-      :src="require('@/assets/img/sprites/scene_02/mobile/pshick_static-min.png')"
-      height="400"
-      alt=""> -->
-  </section>
+  <section class="mobile-scene-2"></section>
 </template>
 
 <script>
@@ -13,9 +7,6 @@ export default {
   name: 'MobileAnimeScreenTwo',
   props: { offset: Number },
   data: () => ({
-    width: window.innerWidth,
-    height: window.innerHeight,
-
     json_zilch: require('@/assets/img/sprites/scene_02/mobile/m-pshick.json'),
     sprite_img: require('@/assets/img/sprites/scene_02/mobile/m-pshick.png'),
     static_img: require('@/assets/img/sprites/scene_02/mobile/pshick_static-min.png'),
@@ -33,6 +24,16 @@ export default {
         width: this.width + 40,
         height: 380,
       });
+    },
+    width: function() {
+      if ( process.browser ) {
+        return window.innerWidth
+      }
+    },
+    height: function() {
+      if ( process.browser ) {
+        return window.innerHeight
+      }
     },
     sceneOffset: function() {
       const scene = document.querySelector('.mobile-scene-2');

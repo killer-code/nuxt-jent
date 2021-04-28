@@ -25,9 +25,13 @@ export default {
   name: 'Preloader',
   components: { BarLoader },
   props: { loaded: Boolean },
-  data: () => ({
-    isMobile: window.innerWidth < 561,
-  }),
+  computed: {
+    isMobile: function() {
+      if ( process.browser ) {
+        return window.innerWidth < 561
+      }
+    }
+  },
   mounted() {
     const scene = document.querySelector('.parx-scene');
     const parallaxInstance = new this.$parallax(scene);

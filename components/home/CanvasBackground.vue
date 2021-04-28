@@ -13,7 +13,6 @@ export default {
     scroll: Number,
   },
   data: () => ({
-    height: window.innerHeight,
     particles: [],
 
     mouse_coord: {
@@ -23,6 +22,11 @@ export default {
     then: '',
   }),
   computed: {
+    height: function() {
+      if ( process.browser ) {
+        return window.innerHeight
+      }
+    },
     canvas: function() {
       const canvas = document.querySelector('#bg-canvas');
       return canvas;
@@ -33,14 +37,14 @@ export default {
     },
     particalCount: function() {
       let count = 350;
-      if ( window.innerWidth < 561 ) {
+      if ( process.browser && window.innerWidth < 561 ) {
         count = 150;
       }
       return count;
     },
     width: function() {
-      let width = window.innerWidth;
-      if ( window.innerWidth < 561 ) {
+      let width;
+      if ( process.browser ) {
         width = window.innerWidth
       }
       return width;
@@ -65,79 +69,81 @@ export default {
     },
 
     Particle(self) {
-      this.color = `rgba(255, 255, 255, .05)`;
-      this.shadowcolor = `rgba(255, 255, 255, .025)`;
-    
-      this.x = Math.random() * self.width;
-      this.y = Math.random() * self.height + (window.innerHeight / 3.3);
-      this.direction = {
-          "x": -1 + Math.random() * 2,
-          "y": -1 + Math.random() * 2
-      };
+      if ( process.browser ) {
+        this.color = `rgba(255, 255, 255, .05)`;
+        this.shadowcolor = `rgba(255, 255, 255, .025)`;
       
-      this.radius = self.randomNorm(0, 4);
-      this.scale = .9;
-      this.rotation = Math.PI / 4 * Math.random();
-    
-      this.grad = self.ctx.createRadialGradient( 
-        this.x, this.y, this.radius, this.x, this.y, 0 
-      );
-      this.grad.addColorStop(.9, this.color);
-      this.grad.addColorStop(.2, this.shadowcolor);
-    
-      this.vx = (2 * Math.random() + 4) * .005 * this.radius;
-      this.vy = (2 * Math.random() + 4) * .015 * this.radius;
+        this.x = Math.random() * self.width;
+        this.y = Math.random() * self.height + (window.innerHeight / 3.3);
+        this.direction = {
+            "x": -1 + Math.random() * 2,
+            "y": -1 + Math.random() * 2
+        };
+        
+        this.radius = self.randomNorm(0, 4);
+        this.scale = .9;
+        this.rotation = Math.PI / 4 * Math.random();
       
-      this.valpha = 0.1 * Math.random() - .05;
+        this.grad = self.ctx.createRadialGradient( 
+          this.x, this.y, this.radius, this.x, this.y, 0 
+        );
+        this.grad.addColorStop(.9, this.color);
+        this.grad.addColorStop(.2, this.shadowcolor);
       
-      this.move = function () {
-          this.x += this.vx * this.direction.x;
-          this.y += this.vy * this.direction.y;
-          this.rotation += this.valpha;
-      };
+        this.vx = (2 * Math.random() + 4) * .005 * this.radius;
+        this.vy = (2 * Math.random() + 4) * .015 * this.radius;
+        
+        this.valpha = 0.1 * Math.random() - .05;
+        
+        this.move = function () {
+            this.x += this.vx * this.direction.x;
+            this.y += this.vy * this.direction.y;
+            this.rotation += this.valpha;
+        };
 
-      this.changeDirection = function (axis) {
-          this.direction[axis] *= -1;
-          this.valpha *= -1;
-      };
+        this.changeDirection = function (axis) {
+            this.direction[axis] *= -1;
+            this.valpha *= -1;
+        };
 
-      this.draw = function () {
-        self.ctx.save();
-        self.ctx.translate(
-          this.x + self.mouse_coord.rx / -20 * this.radius, 
-          this.y + self.mouse_coord.ry / -20 * this.radius
-        );   
-        self.ctx.scale(1, this.scale);
-          
-          this.grad = self.ctx.createRadialGradient( 
-            0, 0, this.radius, 0, 0, 0 
-          );
-          this.grad.addColorStop(.9, this.color);
-          this.grad.addColorStop(.1, this.shadowcolor);
+        this.draw = function () {
+          self.ctx.save();
+          self.ctx.translate(
+            this.x + self.mouse_coord.rx / -20 * this.radius, 
+            this.y + self.mouse_coord.ry / -20 * this.radius
+          );   
+          self.ctx.scale(1, this.scale);
+            
+            this.grad = self.ctx.createRadialGradient( 
+              0, 0, this.radius, 0, 0, 0 
+            );
+            this.grad.addColorStop(.9, this.color);
+            this.grad.addColorStop(.1, this.shadowcolor);
 
-          self.ctx.beginPath();
-          self.ctx.fillStyle = this.grad;
-          self.ctx.arc(0, 0, this.radius, 0, Math.PI * 2, false);
-          self.ctx.fill();
-          self.ctx.restore();   
-      };
+            self.ctx.beginPath();
+            self.ctx.fillStyle = this.grad;
+            self.ctx.arc(0, 0, this.radius, 0, Math.PI * 2, false);
+            self.ctx.fill();
+            self.ctx.restore();   
+        };
 
-      this.boundaryCheck = function () {
-        if (this.x >= self.width * 1.2) {
-            this.x = self.width * 1.2;
-            this.changeDirection("x");
-        } else if (this.x <= -self.width * 0.2) {
-            this.x = -self.width * 0.2;
-            this.changeDirection("x");
+        this.boundaryCheck = function () {
+          if (this.x >= self.width * 1.2) {
+              this.x = self.width * 1.2;
+              this.changeDirection("x");
+          } else if (this.x <= -self.width * 0.2) {
+              this.x = -self.width * 0.2;
+              this.changeDirection("x");
+          }
+          if (this.y >= self.height * 1.2) {
+              this.y = self.height * 1.2;
+              this.changeDirection("y");
+          } else if (this.y <= -self.height * 0.2) {
+              this.y = -self.height * 0.2;
+              this.changeDirection("y");
+          }
         }
-        if (this.y >= self.height * 1.2) {
-            this.y = self.height * 1.2;
-            this.changeDirection("y");
-        } else if (this.y <= -self.height * 0.2) {
-            this.y = -self.height * 0.2;
-            this.changeDirection("y");
-        }
-      };
+      }
     },
 
     createParticles() {
