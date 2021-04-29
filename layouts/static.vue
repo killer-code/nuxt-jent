@@ -22,6 +22,10 @@ export default {
     asideData: { isOpen: false, },
     nav: { isOpen: false, },
   }),
+  mounted() {
+    document.querySelector('body').classList.remove('blocked')
+    document.querySelector('html').classList.remove('blocked')
+  }
 };
 </script>
 

@@ -140,6 +140,16 @@ export default {
     },
     isAsideActive: function() {
       return this.asideData.isOpen;
+    },
+    width: function() {
+      if ( process.browser ) {
+        return window.innerWidth
+      }
+    },
+    height: function() {
+      if ( process.browser ) {
+        return window.innerHeight
+      }
     }
   },
   methods: {
@@ -210,13 +220,37 @@ export default {
     scrollDown() {
       this.$refs.fullpage.api.moveSectionDown();
     },
+
+    rebuildPage() {
+      window.addEventListener('resize', e => {
+        if ( Math.abs(e.target.visualViewport.height - this.height) > 100 || 
+            Math.abs(e.target.visualViewport.width - this.width) > 200 ) {
+              window.location.reload();
+        }
+        if ( this.width > this.height ) {
+          if ( e.target.outerWidth < e.target.outerHeight ) {
+            window.location.reload();
+          }
+        }
+        if ( this.width < this.height ) {
+          if ( e.target.outerWidth > e.target.outerHeight ) {
+            window.location.reload();
+          }
+        }
+      })
+      window.addEventListener("orientationchange", () => {
+        window.location.reload();
+      }, false);
+    }
   },
   watch: {
     isAsideActive() {
-      if ( this.isAsideActive ) {
-        this.$refs.fullpage.api.setAllowScrolling(false);
-      } else {
-        this.$refs.fullpage.api.setAllowScrolling(true);
+      if ( !this.isMob ) {
+        if ( this.isAsideActive ) {
+          this.$refs.fullpage.api.setAllowScrolling(false);
+        } else {
+          this.$refs.fullpage.api.setAllowScrolling(true);
+        }
       }
     }
   },
@@ -262,6 +296,10 @@ export default {
       const el = e.target.closest('.aside_wrap');
       el.scrollTop += e.deltaY;
     });
+
+    if ( process.browser ) {
+      this.rebuildPage()
+    }
   }
 }
 </script>
