@@ -10,17 +10,27 @@ export default {
   name: 'AnimeScreenFive',
   props: {
     scroll: Number,
-    sprite_img: Image,
     scrollpage: Object,
     animationState: Object,
   },
   data: () => ({
-    width: window.innerWidth,
-    height: window.innerHeight,
     json_neon: require('@/assets/img/sprites/scene_05/neon-2.json'),
     sheet_neon: '',
+    spriteURL: '/scene_05/neon-2.webp',
+    sprite_img: '',
   }),
   computed: {
+    width: function() {
+      if ( process.browser ) {
+        return window.innerWidth
+      }
+    },
+    height: function() {
+      if ( process.browser ) {
+        return window.innerHeight
+      }
+    },
+    
     app: function() {
       return new this.$PIXI.Application({
         antialias: true,
@@ -45,7 +55,9 @@ export default {
       }
     },
   },
-  mounted() {},
+  mounted() {
+    this.preload(this.spriteURL);
+  },
   methods: {
     createScene() {
       const sequence = document.querySelector('#main-scene');
@@ -174,6 +186,11 @@ export default {
 
         this.app.stage.addChild(anim);
       }
+    },
+
+    preload(sprite) {
+      this.sprite_img = new Image();
+      this.sprite_img.src = require(`~/assets/img/sprites${sprite}`)
     },
   },
   watch: {

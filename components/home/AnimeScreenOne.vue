@@ -8,19 +8,21 @@
 <script>
 export default {
   name: 'AnimeScreenOne',
-  props: [
-    'scroll',
-    'loaded',
-    'scrollpage',
-    'sprite_img',
-    'animationState'
-  ],
+  props: {
+    scroll: Number,
+    loaded: Boolean,
+    scrollpage: Object,
+    animationState: Object,
+  },
   data: () => ({
     mouseX: 0,
     mouseY: 0,
 
     json_rotate: require('@/assets/img/sprites/scene_01/rotate.json'),
     parallaxInstance: '',
+
+    sprite_img: '',
+    spriteURL: '/scene_01/rotate.png',
   }),
   computed: {
     app: function() {
@@ -159,12 +161,18 @@ export default {
         this.mouseY = newMouseY - window.innerHeight / 2;
       }, 10)
     },
+
+    preload(sprite) {
+      this.sprite_img = new Image();
+      this.sprite_img.src = require(`~/assets/img/sprites${sprite}`)
+    },
   },
   mounted() {
     const treshScene = document.querySelector('.scene-005');
     if ( treshScene ) {
       document.removeChild(treshScene);
     }
+    this.preload(this.spriteURL);
   },
   watch: {
     'animationState.one': function() {
@@ -198,10 +206,6 @@ export default {
     },
     scroll() {
       if ( this.scroll === 1 ) {
-        const treshScene = document.querySelector('.scene-001');
-        if ( treshScene ) {
-          document.getElementById('main-scene').removeChild(treshScene);
-        }
         document.removeEventListener('mousemove', e => {
           this.getMouseX(e);
         })

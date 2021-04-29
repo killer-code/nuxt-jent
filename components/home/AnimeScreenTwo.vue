@@ -8,16 +8,18 @@
 <script>
 export default {
   name: 'AnimeScreenTwo',
-  props: [
-    'scroll',
-    'loaded',
-    'scrollpage',
-    'sprite_img',
-    'animationState'
-  ],
+  props: {
+    scroll: Number,
+    loaded: Boolean,
+    scrollpage: Object,
+    animationState: Object,
+  },
   data: () => ({
     json_zilch:  require('@/assets/img/sprites/scene_02/pshick-2.json'),
     sheet_zilch: '',
+
+    sprite_img: '',
+    spriteURL: '/scene_02/pshick-2.png',
   }),
   computed: {
     app: function() {
@@ -147,7 +149,15 @@ export default {
         anim.filters = [new this.$PIXI.filters.FXAAFilter()]
       };
       this.app.stage.addChild(anim)
-    }
+    },
+
+    preload(sprite) {
+      this.sprite_img = new Image();
+      this.sprite_img.src = require(`~/assets/img/sprites${sprite}`)
+    },
+  },
+  mounted() {
+    this.preload(this.spriteURL);
   },
   watch: {
     loaded() {

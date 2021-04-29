@@ -74,17 +74,17 @@ export default {
   },
   created() {},
   mounted() {
-    // if ( process.browser ) {
-    //   window.addEventListener('scroll', () => {
-    //     this.offset =  window.pageYOffset;
-    //   })
-    //   window.addEventListener('touchmove', () => {
-    //     if ( this.isMobile ) {
-    //       document.querySelector('html').style.overflow = 'auto';
-    //       document.querySelector('html').style.height = 'fit-content';
-    //     }
-    //   })
-    // }
+    if ( process.browser ) {
+      window.addEventListener('scroll', () => {
+        this.offset =  window.pageYOffset;
+      })
+      window.addEventListener('touchmove', () => {
+        if ( this.isMobile ) {
+          document.querySelector('html').style.overflow = 'auto';
+          document.querySelector('html').style.height = 'fit-content';
+        }
+      })
+    }
 
     document.querySelector('body').classList.remove('blocked')
     document.querySelector('html').classList.remove('blocked')

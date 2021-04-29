@@ -17,8 +17,7 @@
 export default {
   name: 'AnimeScreenThree',
   props: {
-    scroll: Number,                 
-    sprite_img: Image,
+    scroll: Number,
     scrollpage: Object,
   },
   data: () => ({

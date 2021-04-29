@@ -9,20 +9,33 @@ export default {
     scroll: Number,
     scrollpage: Object,
     animationState: Object,
-    sprite_img_line: Image,
-    sprite_img_flackon: Image,
   },
   data: () => ({
-    width: window.innerWidth,
-    height: window.innerHeight,
-
     json_lines:   require('@/assets/img/sprites/scene_04/lines-2.json'),
     json_flackon: require('@/assets/img/sprites/scene_04/flackon.json'),
 
     sheet_lines: '',
     sheet_flackon: '',
+    sprite_img_line: '',
+    sprite_img_flackon: '',
+
+    spriteURLs: [
+      '/scene_04/lines-2.webp',
+      '/scene_04/flackon.png',
+    ],
   }),
   computed: {
+    width: function() {
+      if ( process.browser ) {
+        return window.innerWidth
+      }
+    },
+    height: function() {
+      if ( process.browser ) {
+        return window.innerHeight
+      }
+    },
+
     app: function() {
       return new this.$PIXI.Application({
         antialias: true,
@@ -47,7 +60,9 @@ export default {
       }
     },
   },
-  mounted() {},
+  mounted() {
+    this.preload(this.spriteURLs);
+  },
   methods: {
     createScene() {
       const sequence = document.querySelector('#main-scene');
@@ -135,6 +150,18 @@ export default {
         anim.play();
 
         this.app.stage.addChild(anim);
+      }
+    },
+
+    preload(sprites) {
+      for (let i = 0; i < 2; i++) {
+        if ( i === 0 ) {
+          this.sprite_img_line = new Image();
+          this.sprite_img_line = require(`~/assets/img/sprites${sprites[i]}`)
+        } else {
+          this.sprite_img_flackon = new Image();
+          this.sprite_img_flackon = require(`~/assets/img/sprites${sprites[i]}`)
+        }
       }
     },
   },

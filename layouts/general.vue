@@ -14,54 +14,52 @@
 
     
     <Preloader v-if="!loaded" />
-    
-    <MainScene :screen="scroll" v-if="!isMob" />
 
-    <AnimeScreenOne
-      v-if="!isMob"
-      :animationState="animationState"
-      :scrollpage="$refs.fullpage"
-      :sprite_img="images[0]"
-      :loaded="loaded"
-      :scroll="scroll" />
+    <client-only>
+      <MainScene :screen="scroll" v-if="!isMob" />
 
-    <AnimeScreenTwo
-      v-if="!isMob"
-      :animationState="animationState"
-      :scrollpage="$refs.fullpage"
-      :sprite_img="images[1]"
-      :loaded="loaded"
-      :scroll="scroll" />
+      <AnimeScreenOne
+        v-if="!isMob"
+        :animationState="animationState"
+        :scrollpage="$refs.fullpage"
+        :loaded="loaded"
+        :scroll="scroll" />
 
-    <!-- <AnimeScreenThree
-      v-if="!isMob"
-      :animationState="animationState"
-      :scrollpage="$refs.fullpage"
-      :scroll="scroll" /> -->
+      <AnimeScreenTwo
+        v-if="!isMob"
+        :animationState="animationState"
+        :scrollpage="$refs.fullpage"
+        :loaded="loaded"
+        :scroll="scroll" />
+      
 
-    <!-- <AnimeScreenFour
-      v-if="!isMob"
-      :animationState="animationState"
-      :sprite_img_flackon="images[3]"
-      :sprite_img_line="images[2]"
-      :scrollpage="$refs.fullpage"
-      :scroll="scroll" /> -->
+      <AnimeScreenThree
+        v-if="!isMob"
+        :animationState="animationState"
+        :scrollpage="$refs.fullpage"
+        :scroll="scroll" />
 
-    <!-- <AnimeScreenFive
-      v-if="!isMob"
-      :animationState="animationState"
-      :scrollpage="$refs.fullpage"
-      :sprite_img="images[4]"
-      :scroll="scroll" /> -->
+      <AnimeScreenFour
+        v-if="!isMob"
+        :animationState="animationState"
+        :scrollpage="$refs.fullpage"
+        :scroll="scroll" />
 
-    <!-- <AnimeScreenSix
-      v-if="!isMob"
-      :animationState="animationState"
-      :scrollpage="$refs.fullpage"
-      :sprite_img="images[5]"
-      :scroll="scroll" /> -->
+      <AnimeScreenFive
+        v-if="!isMob"
+        :animationState="animationState"
+        :scrollpage="$refs.fullpage"
+        :scroll="scroll" />
 
-    <full-page ref="fullpage" id="fullpage" 
+      <AnimeScreenSix
+        v-if="!isMob"
+        :animationState="animationState"
+        :scrollpage="$refs.fullpage"
+        :scroll="scroll" />
+    </client-only>
+
+    <full-page ref="fullpage" 
+      id="fullpage" 
       :skip-init="true" 
       :options="options">
         <router-view :asideData="asideData" 
@@ -87,10 +85,10 @@ import Preloader from '@/components/Preloader'
 import MainScene        from '@/components/home/MainScene'
 import AnimeScreenOne   from '@/components/home/AnimeScreenOne'
 import AnimeScreenTwo   from '@/components/home/AnimeScreenTwo'
-// import AnimeScreenThree from '@/components/home/AnimeScreenThree'
-// import AnimeScreenFour  from '@/components/home/AnimeScreenFour'
-// import AnimeScreenFive  from '@/components/home/AnimeScreenFive'
-// import AnimeScreenSix   from '@/components/home/AnimeScreenSix'
+import AnimeScreenThree from '@/components/home/AnimeScreenThree'
+import AnimeScreenFour  from '@/components/home/AnimeScreenFour'
+import AnimeScreenFive  from '@/components/home/AnimeScreenFive'
+import AnimeScreenSix   from '@/components/home/AnimeScreenSix'
 
 export default {
   name: 'general',
@@ -104,10 +102,10 @@ export default {
     MainScene,
     AnimeScreenOne,
     AnimeScreenTwo,
-    // AnimeScreenThree, 
-    // AnimeScreenFour,
-    // AnimeScreenFive,
-    // AnimeScreenSix,
+    AnimeScreenThree, 
+    AnimeScreenFour,
+    AnimeScreenFive,
+    AnimeScreenSix,
   },
   data: () => ({
     loaded: false,
@@ -125,20 +123,11 @@ export default {
       five: '',
       six: '',
     },
-    images: [],
-    sprites: [
-      '/scene_01/rotate.png',
-      '/scene_02/pshick-2.png',
-      '/scene_04/lines-2.webp',
-      '/scene_04/flackon.png',
-      '/scene_05/neon-2.webp',
-      '/scene_06/back.png',
-    ],
   }),
   computed: {
     isMob: function() {
       if ( process.browser ) {
-        window.innerWidth < 560
+       return window.innerWidth < 560
       }
     },
     options: function() {
@@ -221,12 +210,6 @@ export default {
     scrollDown() {
       this.$refs.fullpage.api.moveSectionDown();
     },
-    preload(sprites) {
-      for (let i = 0; i < sprites.length; i++) {
-        this.images[i] = new Image();
-        this.images[i].src = require(`~/assets/img/sprites${sprites[i]}`)
-      }
-    },
   },
   watch: {
     isAsideActive() {
@@ -279,9 +262,6 @@ export default {
       const el = e.target.closest('.aside_wrap');
       el.scrollTop += e.deltaY;
     });
-    if ( !this.isMob ) {
-      this.preload(this.sprites);
-    }
   }
 }
 </script>

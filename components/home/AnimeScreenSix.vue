@@ -20,20 +20,30 @@ export default {
   name: 'AnimeScreenSix',
   props: {
     scroll: Number,
-    sprite_img: Image,
     scrollpage: Object,
     animationState: Object,
   },
   data: () => ({
-    width: window.innerWidth,
-    height: window.innerHeight,
-
     json_back: require('@/assets/img/sprites/scene_06/back.json'),
     sheet_back: '',
     isStatic: false,
     parallaxInstance: '',
+
+    sprite_img: '',
+    spriteURL: '/scene_06/back.png',
   }),
   computed: {
+    width: function() {
+      if ( process.browser ) {
+        return window.innerWidth
+      }
+    },
+    height: function() {
+      if ( process.browser ) {
+        return window.innerHeight
+      }
+    },
+
     app: function() {
       return new this.$PIXI.Application({
         antialias: true,
@@ -63,7 +73,9 @@ export default {
       }
     }
   },
-  mounted() {},
+  mounted() {
+    this.preload(this.spriteURL);
+  },
   methods: {
     createScene() {
       const sequence = document.querySelector('#main-scene');
@@ -170,7 +182,12 @@ export default {
 
         this.app.stage.addChild(anim);
       }
-    }
+    },
+
+    preload(sprite) {
+      this.sprite_img = new Image();
+      this.sprite_img.src = require(`~/assets/img/sprites${sprite}`)
+    },
   },
   watch: {
     'animationState.six': function() {

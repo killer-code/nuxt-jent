@@ -11,6 +11,7 @@
     <section>
       <Navigation :nav="nav" />
     </section>
+    
 
     <CanvasBackground :loaded="loaded" />
 
@@ -73,6 +74,9 @@ export default {
     },
     isAsideActive: function() {
       return this.asideData.isOpen;
+    },
+    isClient: function() {
+      return process.browser
     }
   },
   methods: {
