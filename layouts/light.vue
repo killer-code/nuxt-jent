@@ -23,6 +23,13 @@
           :loaded="loaded" 
         />
     </full-page>
+
+    <client-only>
+      <transition name="fade" mode="out-in">
+        <Disclaimer v-show="!isOld && $refs.static_fullpage" 
+          :scrollpage="$refs.static_fullpage" />
+      </transition>
+    </client-only>
     
     <Footer :scroll="scroll" 
       @down="scrollDown" 
@@ -37,6 +44,7 @@ import WestSide   from '@/components/WestSide'
 import Navigation from '@/components/Navigation'
 
 import CanvasBackground from '@/components/home/CanvasBackground'
+import Disclaimer       from '@/components/Disclaimer'
 
 export default {
   name: 'light',
@@ -46,6 +54,7 @@ export default {
     WestSide, 
     Navigation,
 
+    Disclaimer,
     CanvasBackground
   },
   data: () => ({
@@ -70,6 +79,11 @@ export default {
     isMob: function() {
       if (process.browser){
         return window.innerWidth < 560;
+      }
+    },
+    isOld: function() {
+      if ( process.browser ) {
+        return sessionStorage.getItem('old')
       }
     },
     isAsideActive: function() {

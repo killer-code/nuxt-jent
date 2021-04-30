@@ -1,5 +1,5 @@
 <template>
-  <section class="disclaimer">
+  <section class="disclaimer" v-if="showModal">
     <section class="disclaimer__content disclaimer__content_center">
       <img src="@/assets/img/logo_color.svg" class="disclaimer__img" alt="">
       <p>Информация на сайте предназначена для врачей.</p>
@@ -13,23 +13,51 @@
 <script>
 export default {
   name: 'Disclaimer',
+  data: () => ({
+    showModal: true,
+  }),
   methods: {
     goSite() { 
-      localStorage.old = true;
-      window.location.reload();
+      if ( process.browser ) {
+        sessionStorage.setItem('old', true);
+        this.closeModalWindow();
+      }
+    },
+    closeModalWindow() {
+      if ( process.browser ) {
+        document.querySelector('body').classList.remove('blocked')
+        document.querySelector('html').classList.remove('blocked')
+
+        this.showModal = false;
+
+        setTimeout(() => {
+          const main = document.querySelector('.main');
+          main.removeChild(document.querySelector('.disclaimer'));
+        })
+      }
     }
-  }
+  },
+  mounted() {
+    document.querySelector('body').classList.add('blocked')
+    document.querySelector('html').classList.add('blocked')
+  },
+
 }
 </script>
 
 <style lang="scss" scoped>
 .disclaimer {
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 100000;
 
   width: 100vw;
   height: 100vh;
+
+  top: 0;
+  left: 0;
 
   background: radial-gradient(29.27% 59.49% at 50% 100%, rgba(79, 70, 92, 0.6) 0%, rgba(79, 70, 92, 0) 100%), #0A0B11;
 
@@ -74,5 +102,12 @@ export default {
       width: calc(100% - 60px);
     }
   }
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 3s ease;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>

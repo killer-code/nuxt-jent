@@ -67,6 +67,12 @@
           :loaded="loaded" />
     </full-page>
 
+    <client-only>
+      <transition name="fade" mode="out-in">
+        <Disclaimer v-show="!isOld" />
+      </transition>
+    </client-only>
+
     <Footer :scroll="scroll" 
       @down="scrollDown" 
       v-if="scroll != 5 && !isMob" />
@@ -90,6 +96,8 @@ import AnimeScreenFour  from '@/components/home/AnimeScreenFour'
 import AnimeScreenFive  from '@/components/home/AnimeScreenFive'
 import AnimeScreenSix   from '@/components/home/AnimeScreenSix'
 
+import Disclaimer from '@/components/Disclaimer'
+
 export default {
   name: 'general',
   components: { 
@@ -106,6 +114,8 @@ export default {
     AnimeScreenFour,
     AnimeScreenFive,
     AnimeScreenSix,
+
+    Disclaimer,
   },
   data: () => ({
     loaded: false,
@@ -128,6 +138,11 @@ export default {
     isMob: function() {
       if ( process.browser ) {
        return window.innerWidth < 560
+      }
+    },
+    isOld: function() {
+      if ( process.browser ) {
+        return sessionStorage.getItem('old')
       }
     },
     options: function() {

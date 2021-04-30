@@ -31,8 +31,7 @@ export default {
 
   components: true,
 
-  buildModules: [
-  ],
+  buildModules: [],
 
   modules: [
     '@nuxtjs/axios',
@@ -41,6 +40,5 @@ export default {
 
   axios: {},
 
-  build: {
-  }
+  build: {}
 }

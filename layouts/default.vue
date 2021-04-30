@@ -7,60 +7,68 @@
       <transition name="fade" mode="out-in">
         <Nuxt />
       </transition>
+
+      <client-only>
+        <transition name="fade" mode="out-in">
+          <Disclaimer v-show="!isOld" />
+        </transition>
+      </client-only>
     </main>
 
-    <StaticFooter class="footer" />
   </section>
 </template>
 
 <script>
-import Header       from '@/components/Header'
-import Navigation   from '@/components/Navigation'
-import StaticFooter from '@/components/StaticFooter'
+import Header     from '@/components/Header'
+import Navigation from '@/components/Navigation'
+import Disclaimer from '@/components/Disclaimer'
 
 export default {
   name: 'default',
-  components: { Header, Navigation, StaticFooter },
+  components: { Header, Navigation, Disclaimer },
   data: () => ({
     asideData: { isOpen: false, },
     nav: { isOpen: false, },
   }),
-}
+  computed: {
+    isOld: function() {
+      if ( process.browser ) {
+        return sessionStorage.getItem('old')
+      }
+    },
+  },
+  mounted() {
+    document.querySelector('body').classList.remove('blocked')
+    document.querySelector('html').classList.remove('blocked')
+  }
+};
 </script>
 
 <style lang="scss" scoped>
 .header {
-  position: relative;
+  background: #0a0b11;
+  margin-right: 15px;
 }
+
 .app-page {
   position: relative;
-  margin: 50px auto 50px;
-  max-width: 1200px;
-  padding: 0 30px;
+  margin: 200px auto 0;
+  background: #0a0b11;
+  max-width: 1568px;
+  padding: 0 30px 50px;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 250px);
 
-  @media screen and ( max-width: 560px ) {
-    height: auto;
-    margin-top: 32px;
+  @media screen and (max-width: 560px) {
+    margin: 100px auto 0;
+    padding: 0 15px 50px;
+    min-height: calc(100vh - 150px);
   }
 }
 .wrapper-page {
-  background:#0A0B11;
-  width: 100vw;
-  height: 100%;
-
-  @media screen and ( max-width: 560px ) {
-    height: auto;
-  }
-}
-.footer {
-  position: relative;
-  bottom: 10px;
-  padding-bottom: 20px;
-
-  @media screen and ( max-width: 560px ) {
-    position: relative;
-  }
+  background: #0a0b11;
 }
 
 .fade-enter-active, .fade-leave-active {

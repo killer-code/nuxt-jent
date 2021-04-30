@@ -1011,7 +1011,6 @@ import StaticFooter from '@/components/StaticFooter';
 
 export default {
   name: 'Instruction',
-  layout: 'static',
   head: {
     title: 'Инструкция по применению спрея для потенции джент | Jent',
     meta: [
@@ -1023,9 +1022,7 @@ export default {
       }
     ],
   },
-  components: {
-    StaticFooter,
-  },
+  components: { StaticFooter },
   methods: {
     goSite() {
       localStorage.old = true;

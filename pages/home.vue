@@ -48,7 +48,7 @@ export default {
       }
     ],
   },
-  layout: 'light', 
+  layout: 'light',
   props: ['asideData', 'screen', 'loaded'],
   components: { 
     ScreenOne, 

@@ -70,7 +70,6 @@ import StaticFooter from '@/components/StaticFooter';
 
 export default {
   name: 'WebAR',
-  layout: 'static',
   head: {
     title: 'Web AR — дополненная реальность в веб | Jent',
     meta: [
@@ -82,9 +81,7 @@ export default {
       }
     ],
   },
-  components: {
-    StaticFooter,
-  },
+  components: { StaticFooter },
 };
 </script>
 

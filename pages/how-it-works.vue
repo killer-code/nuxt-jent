@@ -83,7 +83,6 @@ import pageData from '@/store/HowItWorksData'
 
 export default {
   name: 'HowItWorks',
-  layout: 'static',
   head: {
     title: 'Как работает спрей для потенции джент | Jent',
     meta: [
@@ -95,9 +94,7 @@ export default {
       }
     ],
   },
-  components: {
-    StaticFooter,
-  },
+  components: { StaticFooter },
   data: () => ({
     items: pageData,
   }),
