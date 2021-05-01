@@ -1,5 +1,5 @@
 <template>
-  <section class="mobile-scene-3">
+  <section v-if="width < 560" class="mobile-scene-3">
 
     <div class="bac" 
       :class="{'bac_active': startSmoke}"></div>

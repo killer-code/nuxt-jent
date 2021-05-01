@@ -9,7 +9,7 @@
         
         <section class="content page-1-content">
 
-          <MobileAnimeScreenTwo :offset="offset" />
+          <MobileAnimeScreenTwo v-if="isMobile" :offset="offset" />
 
           <h2 class="caption-2">
             Меньше побочных<br class="mb_d-none"> 
@@ -103,6 +103,13 @@ export default {
   data: () => ({
     dialog: false,
   }),
+  computed: {
+    isMobile: function() {
+      if ( process.browser ) {
+        return window.innerWidth < 561
+      }
+    }
+  },
   methods: {
     openAside(e) {
       const btnKey = e.target.parentElement.dataset.key;
