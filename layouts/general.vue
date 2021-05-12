@@ -56,16 +56,16 @@
         :animationState="animationState"
         :scrollpage="$refs.fullpage"
         :scroll="scroll" />
-    </client-only>
 
-    <full-page ref="fullpage" 
-      id="fullpage" 
-      :skip-init="true" 
-      :options="options">
-        <router-view :asideData="asideData" 
-          :screen="scroll" 
-          :loaded="loaded" />
-    </full-page>
+      <full-page ref="fullpage" 
+        id="fullpage" 
+        :skip-init="true" 
+        :options="options">
+          <router-view :asideData="asideData" 
+            :screen="scroll" 
+            :loaded="loaded" />
+      </full-page>
+    </client-only>
 
     <client-only>
       <transition name="fade" mode="out-in">
@@ -233,7 +233,9 @@ export default {
       }
     },
     scrollDown() {
-      this.$refs.fullpage.api.moveSectionDown();
+      if ( this.$refs.fullpage && this.$refs.fullpage.api ) {
+        this.$refs.fullpage.api.moveSectionDown();
+      }
     },
 
     rebuildPage() {
@@ -270,8 +272,21 @@ export default {
     }
   },
   created() {
+    if ( !this.loaded ) {
+      setTimeout(() => {
+        this.loaded = true;
+      }, 7000)
+    }
+  },
+  mounted() {
+    const west = document.querySelector('.west');
+    west.addEventListener('wheel', e => {
+      const el = e.target.closest('.aside_wrap');
+      el.scrollTop += e.deltaY;
+    });
+
     if ( process.browser ) {
-      window.addEventListener('load', e => {
+      setTimeout(() => {
         let refs = this.$refs
         if ( window.innerWidth > 560 ) {
           let fullpageEnabled = document.documentElement.classList.contains('fp-enabled')
@@ -296,21 +311,8 @@ export default {
         setTimeout(() => {
           this.loaded = true;
         }, 1000)
-      })
+      }, 2000)
     }
-    
-    if ( !this.loaded ) {
-      setTimeout(() => {
-        this.loaded = true;
-      }, 7000)
-    }
-  },
-  mounted() {
-    const west = document.querySelector('.west');
-    west.addEventListener('wheel', e => {
-      const el = e.target.closest('.aside_wrap');
-      el.scrollTop += e.deltaY;
-    });
 
     if ( process.browser ) {
       this.rebuildPage()

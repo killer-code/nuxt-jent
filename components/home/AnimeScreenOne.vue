@@ -215,7 +215,7 @@ export default {
     },
 
     scrollpage() {
-      if ( this.scrollpage ) {
+      if ( this.scrollpage && this.scrollpage.api ) {
         this.scrollpage.api.setAllowScrolling(true);
       }
     }

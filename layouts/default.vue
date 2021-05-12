@@ -38,8 +38,12 @@ export default {
     },
   },
   mounted() {
-    document.querySelector('body').classList.remove('blocked')
-    document.querySelector('html').classList.remove('blocked')
+    if ( process.browser ) {
+      setTimeout(() => {
+        document.querySelector('body').classList.remove('blocked')
+        document.querySelector('html').classList.remove('blocked')
+      }, 500)
+    }
   }
 };
 </script>

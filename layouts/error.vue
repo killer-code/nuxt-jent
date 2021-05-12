@@ -33,17 +33,6 @@
             <span>Вернуться на сайт</span>
         </router-link>
 
-        <div class="app-row _mt-7">
-          <!-- <button class="app-btn app-btn_orange"
-            @click="$router.push('/order')">
-            Заказать
-          </button> -->
-          <!-- <button class="app-btn app-btn_white"
-            @click="$router.push('/moneyback')">
-            Возврат средств
-          </button> -->
-        </div>
-
         <section class="txt_small_wrap">
           <p class="txt_small">
             * ООО «Фармамед» не несет ответственности за действия 
@@ -166,6 +155,7 @@ export default {
     background-repeat: no-repeat;
     background-position: top center;
 
+    width: 100%;
     height: auto;
   }
 }
@@ -175,7 +165,7 @@ export default {
   margin: 80px auto 0;
 }
 .scene-6-static {
-  position: absolute;
+  position: fixed;
   display: flex;
   justify-content: center;
   top: 0;
