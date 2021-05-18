@@ -10,29 +10,26 @@
         </button>
       </div>
 
-      <div class="menu__body" @click="nav.isOpen = false">
-        <router-link to="/" class="menu__item">
-            Главная
-        </router-link>
-        <router-link to="/instruction" class="menu__item">
-            Инструкция
-        </router-link>
-        <router-link to="/webar" class="menu__item">
-            WebAR
-        </router-link>
+      <nav class="menu__body" @click="nav.isOpen = false">
+        <NuxtLink v-for="(item, i) in menuItems" :key="i"
+          :to="item.link" class="menu__item">
+            {{ item.name }}
+        </NuxtLink>
+  
         <!-- <router-link to="/" class="menu__item">
           Правовая информация
         </router-link> -->
 
-        <router-link to="/how-it-works" class="menu__item mb-d">
+        <NuxtLink to="/how-it-works" class="menu__item mb-d">
           Как работает
-        </router-link>
+        </NuxtLink>
         <a href="https://apteka.ru/product/dzhent-5faa2d1ed20e1c0001219169/" 
           target="_blanck"
           class="menu__item menu__item_btn mb-d">
             Где купить
         </a>
-      </div>
+      </nav>
+
     </section>
   </transition>
 </template>
@@ -41,6 +38,14 @@
 export default {
   name: 'Navigation',
   props: ['nav'],
+  data: () => ({
+    menuItems: [
+      { uid: '', name: 'Главная', link: '/' },
+      { uid: '', name: 'Блог', link: '/blog' },
+      { uid: '', name: 'Инструкция', link: '/instruction' },
+      { uid: '', name: 'WebAR', link: '/webar' },
+    ]
+  })
 }
 </script>
 
@@ -138,6 +143,18 @@ export default {
       margin-top: 55px;
       color: #f36d01;
     }
+  }
+}
+.active-link {
+  font-size: 23px;
+  margin: 9px 0;
+  color: #f36d01;
+  pointer-events: none;
+
+  @media screen and (max-width: 560px) {
+    font-size: 19px;
+    margin: 6px 0;
+    color: #f36d01;
   }
 }
 

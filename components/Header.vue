@@ -5,14 +5,14 @@
         <img src="@/assets/img/burger.svg" alt="" />
       </button>
 
-      <router-link to="/" class="main-logo">
+      <NuxtLink to="/" class="main-logo">
         <img src="@/assets/img/logo.svg" alt="" />
-      </router-link>
+      </NuxtLink>
 
       <nav class="nav tb_d-none">
-        <router-link to="/how-it-works" class="nav__link">
+        <NuxtLink to="/how-it-works" class="nav__link">
           Как работает
-        </router-link>
+        </NuxtLink>
       </nav>
     </div>
   </header>
@@ -141,5 +141,14 @@ export default {
 }
 .small {
   font-size: 10px;
+}
+
+.active-link {
+  color: #f36d01;
+  pointer-events: none;
+
+  @media screen and (max-width: 560px) {
+    color: #f36d01;
+  }
 }
 </style>

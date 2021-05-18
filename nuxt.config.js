@@ -1,6 +1,10 @@
 export default {
   target: 'static',
 
+  router: {
+    linkExactActiveClass: 'active-link'
+  },
+
   head: {
     title: 'Jent',
     htmlAttrs: {
@@ -23,8 +27,10 @@ export default {
 
   plugins: [
     '~/plugins/anime',
+    '~/plugins/moment',
     '~/plugins/parallax',
     '~/plugins/element-ui',
+    
     { src: '~/plugins/pixi', mode: 'client' },
     { src: '~/plugins/fullpage', mode: 'client' },
   ],

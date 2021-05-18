@@ -159,7 +159,7 @@ export default {
 
         this.onCreateSpace();
         this.startSmoke = true;
-        setTimeout(() => { this.startMol = true }, 2300)
+        setTimeout(() => { this.startMol = true }, 300)
       } 
 
       if ( this.scroll === 3 || this.scroll === 1 ){
@@ -197,11 +197,15 @@ export default {
 
 .molecula {
   opacity: 0;
-  transition: all 1s ease;
+  transition: all 3s ease;
   margin-right: 10vw;
   width: 50%;
+  transform: scale(0);
 
-  &_active { opacity: 1; }
+  &_active { 
+    opacity: 1; 
+    transform: scale(1);
+  }
 
   @media ( orientation: portrait ) {
     @media screen and ( max-width: 768px ) {
