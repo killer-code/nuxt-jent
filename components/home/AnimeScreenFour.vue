@@ -1,5 +1,11 @@
 <template>
-  <section class="scene" style="position: fixed;"></section>
+  <section class="scene _z-10" style="position: fixed;">
+    <transition name="fade">
+      <div v-show="this.animationState.four === 'start'" class="scene-4-static">
+        <img :src="require('@/assets/img/static/flackon_4_static.png')" :style="`transform: scale(${X}, ${Y})`" alt=""> <!--   -->
+      </div>
+    </transition>
+  </section>
 </template>
 
 <script>
@@ -12,17 +18,18 @@ export default {
   },
   data: () => ({
     json_lines:   require('@/assets/img/sprites/scene_04/lines-2.json'),
-    json_flackon: require('@/assets/img/sprites/scene_04/flackon.json'),
+    // json_flackon: require('@/assets/img/sprites/scene_04/flackon.json'),
 
     sheet_lines: '',
-    sheet_flackon: '',
+    // sheet_flackon: '',
     sprite_img_line: '',
-    sprite_img_flackon: '',
+    // sprite_img_flackon: '',
 
     spriteURLs: [
       '/scene_04/lines-2.webp',
-      '/scene_04/flackon.png',
+      // '/scene_04/flackon.png',
     ],
+    parallaxInstance: '',
   }),
   computed: {
     width: function() {
@@ -70,37 +77,41 @@ export default {
 
       self.app.view.classList.add('scene-004');
       sequence.appendChild(self.app.view);
-      if ( self.app.loader.resources.image_flackon ) { // self.app.loader.resources.image_lines && 
+      if ( self.app.loader.resources.image_lines ) { // self.app.loader.resources.image_flackon && 
         self.app.loader
           .load((loader, resources) => {
             const lines = new this.$PIXI.Texture.from(this.sprite_img_line);
             self.sheet_lines  = new this.$PIXI.Spritesheet(lines, this.json_lines);
 
-            const flackon = new this.$PIXI.Texture.from(this.sprite_img_flackon);
-            self.sheet_flackon  = new this.$PIXI.Spritesheet(flackon, this.json_flackon);
+            // const flackon = new this.$PIXI.Texture.from(this.sprite_img_flackon);
+            // self.sheet_flackon  = new this.$PIXI.Spritesheet(flackon, this.json_flackon);
 
-            this.sheet_flackon.parse(() => {
-              this.onAssetsLoadedFlackon();
+            this.sheet_lines.parse(() => {
+              this.onAssetsLoadedNext();
             })
+
+            // this.sheet_flackon.parse(() => {
+            //   this.onAssetsLoadedFlackon();
+            // })
           })
       } else {
         self.app.loader
           .add('image_lines', this.json_lines)
-          .add('image_flackon', this.json_flackon)
+          // .add('image_flackon', this.json_flackon)
           .load((loader, resources) => {
             const lines = new this.$PIXI.Texture.from(this.sprite_img_line);
             self.sheet_lines  = new this.$PIXI.Spritesheet(lines, this.json_lines);
 
-            const flackon = new this.$PIXI.Texture.from(this.sprite_img_flackon);
-            self.sheet_flackon  = new this.$PIXI.Spritesheet(flackon, this.json_flackon);
+            // const flackon = new this.$PIXI.Texture.from(this.sprite_img_flackon);
+            // self.sheet_flackon  = new this.$PIXI.Spritesheet(flackon, this.json_flackon);
             
             this.sheet_lines.parse(() => {
               this.onAssetsLoadedNext();
             })
 
-            this.sheet_flackon.parse(() => {
-              this.onAssetsLoadedFlackon();
-            })
+            // this.sheet_flackon.parse(() => {
+            //   this.onAssetsLoadedFlackon();
+            // })
           })
       }
     },
@@ -132,36 +143,37 @@ export default {
       container.filters = [blurFilter];
       this.app.stage.addChild(container);
     },
-    onAssetsLoadedFlackon() {
-      let frames = [];
+    // onAssetsLoadedFlackon() {
+    //   let frames = [];
 
-      for ( let i = 0; i <= 18; i++ ) {
-        const val = i;
+    //   for ( let i = 0; i <= 18; i++ ) {
+    //     const val = i;
 
-        frames.push(this.$PIXI.Texture.from(`flackon_${val}-min.png`));
-        const anim = new this.$PIXI.AnimatedSprite(frames);
+    //     frames.push(this.$PIXI.Texture.from(`flackon_${val}-min.png`));
+    //     const anim = new this.$PIXI.AnimatedSprite(frames);
         
-        anim.x = this.app.screen.width / 2;
-        anim.y = this.app.screen.height / 2;
-        anim.anchor.set(.5);
-        anim.animationSpeed = .15;
-        anim.scale.set(this.X, this.Y);
-        anim.loop = true;
-        anim.play();
+    //     anim.x = this.app.screen.width / 2;
+    //     anim.y = this.app.screen.height / 2;
+    //     anim.anchor.set(.5);
+    //     anim.animationSpeed = .15;
+    //     anim.scale.set(this.X, this.Y);
+    //     anim.loop = true;
+    //     anim.play();
 
-        this.app.stage.addChild(anim);
-      }
-    },
+    //     this.app.stage.addChild(anim);
+    //   }
+    // },
 
     preload(sprites) {
       for (let i = 0; i < 2; i++) {
         if ( i === 0 ) {
           this.sprite_img_line = new Image();
           this.sprite_img_line = require(`~/assets/img/sprites${sprites[i]}`)
-        } else {
-          this.sprite_img_flackon = new Image();
-          this.sprite_img_flackon = require(`~/assets/img/sprites${sprites[i]}`)
-        }
+        } 
+        // else {
+        //   this.sprite_img_flackon = new Image();
+        //   this.sprite_img_flackon = require(`~/assets/img/sprites${sprites[i]}`)
+        // }
       }
     },
   },
@@ -211,3 +223,15 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+._z-10 { z-index: 10; }
+
+.fade-enter-active, .fade-leave-active {
+  transition: all .3s ease;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+</style>
+

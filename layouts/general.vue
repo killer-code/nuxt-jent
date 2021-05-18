@@ -343,6 +343,10 @@ export default {
   }
 }
 
+#fullpage {
+  z-index: 100;
+}
+
 .fade-enter-active, .fade-leave-active {
   transition: opacity .3s ease;
 }

@@ -1,25 +1,34 @@
 <template>
-  <section class="article">
-    <section class="article__banner">
-      <div v-if="article.detail_picture" class="article__img">
-          <img :src="`https://jent.men/${article.detail_picture}`" alt="">
-      </div>
-    </section>
+  <section class="page_article">
+    <BreadCrumb :parent="'blog'" />
 
-    <section class="article__header">
-      <h1 class="title">{{ article.name }}</h1>
-      <p class="article__date">{{ article.date }}</p>
-    </section>
-    
-    <p class="subtitle _mb-7">{{ article.text }}</p>
+    <article v-if="article" class="article">
+      <section class="article__banner">
+        <div v-if="article.detail_picture" class="article__img">
+            <img :src="`https://jent.men/${article.detail_picture}`" alt="">
+        </div>
+      </section>
 
-    <section class="article__body">
-      <div class="txt" v-html="article.detaiL_text"></div>
-    </section>
+      <section class="article__header">
+        <h1 class="title">{{ article.name }}</h1>
+        <p class="article__date">{{ $moment(article.date, 'DD.MM.YYYY HH:mm:ss').format('DD MMM YYYY HH:mm') }}</p>
+      </section>
+      
+      <p class="subtitle _mb-7" v-html="article.text"></p>
+
+      <section class="article__body">
+        <div class="txt" v-html="article.detaiL_text"></div>
+      </section>
+    </article>
+
+    <StaticFooter />
   </section>
 </template>
 
 <script>
+import BreadCrumb   from '@/components/BreadCrumb'
+import StaticFooter from '@/components/StaticFooter'
+
 export default {
   name: 'Article',
   head: {
@@ -32,18 +41,28 @@ export default {
       }
     ],
   },
+  components: { BreadCrumb, StaticFooter },
   async asyncData({params, store, error}) {
     try {
-      const article = await store.dispatch('articles/fetchArticleById', params.id)
-      return { article }
+      return await store.dispatch('articles/fetchArticleById', params.id)
     } catch(e) {
       error(e)
+    }
+  },
+  computed: {
+    article: function() {
+      return this.$store.getters['articles/article']
     }
   },
 }
 </script>
 
 <style lang="scss" scoped>
+.page_article {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 250px);
+}
 .title {
   font-weight: 500;
   font-size: 42px;

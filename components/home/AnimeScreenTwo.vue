@@ -81,7 +81,7 @@ export default {
     },
     onAssetsLoadedNext() {
       let frames = [];
-      for ( let i = 0; i <= 29; i++ ) {
+      for ( let i = 0; i <= 20; i++ ) {
         const val = i;
 
         frames.push(this.$PIXI.Texture.from(`pshick_${val}-min.png`));
@@ -90,7 +90,7 @@ export default {
         anim.x = this.app.screen.width / 2;
         anim.y = this.app.screen.height / 2;
         anim.anchor.set(.5);
-        anim.animationSpeed = .12;
+        anim.animationSpeed = .16;
         anim.scale.set(this.X, this.Y);
         anim.loop = false;
         anim.play();
@@ -103,37 +103,9 @@ export default {
         this.app.stage.addChild(anim);
       }
     },
-    onAssetsLoadedUp() {
-      let frames = [];
-
-      for ( let i = 9; i >= 0; i-- ) {
-        const val = i;
-
-        frames.push(this.$PIXI.Texture.from(`pshick_${val}-min.png`));
-        const anim = new this.$PIXI.AnimatedSprite(frames);
-        
-        anim.x = this.app.screen.width / 2;
-        anim.y = this.app.screen.height / 2;
-        anim.anchor.set(.5);
-        anim.animationSpeed = .12;
-        anim.scale.set(this.X, this.Y);
-        anim.loop = false;
-        anim.play();
-        anim.onComplete = () => {
-          this.animationState.one = 'start';
-          this.$PIXI.utils.clearTextureCache();
-          this.app.ticker.stop();
-          const treshScene = document.querySelector('.scene-002');
-          if ( treshScene ) {
-            document.getElementById('main-scene').removeChild(treshScene);
-          }
-        };
-        this.app.stage.addChild(anim);
-      }
-    },
     onAssetsLoadedStatic() {
       let frames = [];
-      frames.push(this.$PIXI.Texture.from(`pshick_29-min.png`));
+      frames.push(this.$PIXI.Texture.from(`pshick_20-min.png`));
       const anim = new this.$PIXI.AnimatedSprite(frames);
       
       anim.x = this.app.screen.width / 2;
@@ -176,9 +148,11 @@ export default {
       if ( this.scroll === 1 && this.animationState.two === 'down' ) {
         this.createScene();
         this.app.ticker.start();
-        this.sheet_zilch.parse(() => {
-          this.onAssetsLoadedNext();
-        })
+        setTimeout(() => {
+          this.sheet_zilch.parse(() => {
+            this.onAssetsLoadedNext();
+          })
+        }, 1000)
 
         const treshScene = document.querySelector('.scene-001');
         if ( treshScene ) {
@@ -186,14 +160,6 @@ export default {
         }
 
         this.scrollpage.api.setAllowScrolling(false);
-      }
-
-      if ( this.scroll === 0 && this.animationState.two === 'up' ) {
-        this.createScene();
-        this.app.ticker.start();
-        this.sheet_zilch.parse(() => {
-          this.onAssetsLoadedUp();
-        })
       }
       if ( this.scroll === 1 && this.animationState.two === 'start' ) {
         this.createScene()
@@ -208,7 +174,30 @@ export default {
           this.onAssetsLoadedStatic();
         })
       }
+      if ( this.scroll === 0 && this.animationState.two === 'up' ) {
+        setTimeout(() => {
+          this.app.ticker.stop();
+          const treshScene = document.querySelector('.scene-002');
+          if ( treshScene ) {
+            document.getElementById('main-scene').removeChild(treshScene);
+          }
+        }, 500)
+        setTimeout(() => {
+          this.animationState.one = 'start';
+        }, 1300)
+
+      }
     }
   }
 }
 </script>
+
+<style lang="scss">
+// .scene-002 {
+//   animation: bottom-top 10s ease both;
+// }
+// @keyframes bottom-top {
+//   from { transform: translateY(80%) !important }
+//   to { transform: translateY(0%) !important }
+// }
+</style>
