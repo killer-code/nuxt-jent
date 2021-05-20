@@ -63,7 +63,7 @@ export default {
   z-index: 1;
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 250px);
+  min-height: calc(100vh - 200px);
 
   @media screen and (max-width: 560px) {
     margin: 100px auto 0;

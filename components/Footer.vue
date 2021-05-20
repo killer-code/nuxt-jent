@@ -37,6 +37,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: 100;
 }
 .footer__counter {
   font-family: 'Aldrich', 'Roboto', sans-serif;

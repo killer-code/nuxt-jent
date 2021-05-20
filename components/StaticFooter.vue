@@ -1,7 +1,7 @@
 <template>
   <footer>
     <p>
-      © 2020, «Фармамед». Все права защищены.
+      © {{ year }}, «Фармамед». Все права защищены.
     </p>
     <p>Правовая информация</p>
   </footer>
@@ -10,6 +10,11 @@
 <script>
 export default {
   name: 'StaticFooter',
+  computed: {
+    year: function() {
+      return this.$moment(new Date()).format('YYYY')
+    }
+  }
 };
 </script>
 
