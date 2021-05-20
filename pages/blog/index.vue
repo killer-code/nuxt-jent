@@ -7,7 +7,7 @@
       действует через 10 минут. В одном флаконе содержится 32 дозы.
     </p>
 
-    <section class="article-list" v-if="articles && articles.length">
+    <section class="article-list _mb-7" v-if="articles && articles.length">
       <article v-for="item in articles" :key="item.id" class="article _mb-7">
         <section class="article__body">
           <div v-if="item.picture" class="article__img column">
@@ -21,7 +21,7 @@
                   {{ item.name }}
                 </h2>
 
-                <small class="article__date">
+                <small v-if="item.date" class="article__date">
                   {{ $moment(item.date, 'DD.MM.YYYY HH:mm:ss').format('DD MMM YYYY HH:mm') }}
                 </small>
               </section>
@@ -31,15 +31,32 @@
             </section>
 
             <section class="article__footer">
-              <button class="article__btn article__btn_more"
-                @click="readMore(item.id)">
-                  <span>Читать еще</span>
-              </button>
+              <nuxt-link :to="{
+                name: 'blog-id', 
+                params: { id: item.id, page: $route.query.page ? $route.query.page : 0 }
+              }">
+                <button class="article__btn article__btn_more">
+                    <span>Читать еще</span>
+                </button>
+              </nuxt-link>
             </section>
           </section>
           
         </section>
       </article>
+
+      <client-only>
+        <Paginate 
+          v-model="page"
+          prev-text="<"
+          next-text=">"
+          :hide-prev-next="true"
+          :page-range="5"
+          :page-count="allPages"
+          :click-handler="pageChangeHandler"
+          :container-class="'pagination'"
+          :page-class="'pagination__item'"/>
+      </client-only>
     </section>
     
     <StaticFooter />
@@ -47,6 +64,8 @@
 </template>
 
 <script>
+import paginationMixin from '@/mixins/pagination.mixin'
+
 import StaticFooter from '@/components/StaticFooter'
 
 export default {
@@ -61,13 +80,15 @@ export default {
       }
     ],
   },
+  mixins: [paginationMixin],
   components: { StaticFooter },
   data: () => ({
     page: 0,
   }),
-  async asyncData({store, error}) {
+  watchQuery: ['page'],
+  async fetch({store, error, query}) {
     try {
-      return await store.dispatch('articles/fetchArticles')
+      await store.dispatch('articles/fetchArticles', query.page)
     } catch(e) {
       error(e)
     }
@@ -79,11 +100,13 @@ export default {
     article_count: function() {
       return this.$store.getters['articles/article_count']
     },
-  },
-  methods: {
-    readMore(id) {
-      this.$router.push(`/blog/${id}`);
+    allPages: function() {
+      const pages = Math.ceil(this.article_count / 10);
+      return pages;
     }
+  },
+  mounted() {
+    this.setupPagination(this.allPages);
   }
 }
 </script>
@@ -121,8 +144,7 @@ export default {
 
   &__header {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
 
     @media screen and ( max-width: 780px ) {
       flex-direction: column;

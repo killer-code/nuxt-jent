@@ -9,7 +9,7 @@
         <img src="@/assets/img/logo.svg" alt="" />
       </NuxtLink>
 
-      <nav class="nav tb_d-none">
+      <nav class="nav tb_d-none nav_how">
         <NuxtLink to="/how-it-works" class="nav__link">
           Как работает
         </NuxtLink>
@@ -123,10 +123,16 @@ export default {
 }
 .nav {
   display: flex;
+  transition: color .3s ease;
 
   &__link {
     color: #fff;
     margin-left: 40px;
+  }
+  &_how {
+    :hover {
+      color: #f36d01;
+    }
   }
 }
 .tb_d-none {

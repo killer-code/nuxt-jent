@@ -2,7 +2,10 @@ export default {
   target: 'static',
 
   router: {
-    linkExactActiveClass: 'active-link'
+    linkExactActiveClass: 'active-link',
+    scrollBehavior (to, from, savedPosition) {
+      return { x: 0, y: 0 }
+    },
   },
 
   head: {
@@ -21,7 +24,7 @@ export default {
   },
 
   css: [
-    '~/assets/scss/styles',
+    '~/assets/scss/styles.scss',
     'element-ui/lib/theme-chalk/index.css',
   ],
 
@@ -33,6 +36,7 @@ export default {
     
     { src: '~/plugins/pixi', mode: 'client' },
     { src: '~/plugins/fullpage', mode: 'client' },
+    { src: '~/plugins/paginate', mode: 'client' },
   ],
 
   components: true,

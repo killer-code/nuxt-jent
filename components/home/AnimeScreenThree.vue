@@ -200,7 +200,7 @@ export default {
   transition: all 3s ease;
   margin-right: 10vw;
   width: 50%;
-  transform: scale(0);
+  transform: scale(.8);
 
   &_active { 
     opacity: 1; 
