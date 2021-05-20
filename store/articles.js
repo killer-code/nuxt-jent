@@ -38,7 +38,7 @@ export const actions = {
 }
 
 export const getters = {
-  articles: state => state.articles,
-  article_count: state => state.article_count,
-  article: state => state.article,
+  articles: s => s.articles,
+  article_count: s => s.article_count,
+  article: s => s.article,
 }

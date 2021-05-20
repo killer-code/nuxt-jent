@@ -1,8 +1,8 @@
 <template>
   <section class="page_article">
-    <BreadCrumb :parent="'blog'" />
+    <BreadCrumb :parent="'blog'" :query="oldPage" />
 
-    <article v-if="article" class="article">
+    <article v-if="article" class="article _mb-7">
       <section class="article__banner">
         <div v-if="article.detail_picture" class="article__img">
             <img :src="`https://jent.men/${article.detail_picture}`" alt="">
@@ -11,21 +11,29 @@
 
       <section class="article__header">
         <h1 class="title">{{ article.name }}</h1>
-        <p class="article__date">{{ $moment(article.date, 'DD.MM.YYYY HH:mm:ss').format('DD MMM YYYY HH:mm') }}</p>
+        <p v-if="article.date" class="article__date">
+          {{ $moment(article.date, 'DD.MM.YYYY HH:mm:ss').format('DD MMM YYYY HH:mm') }}
+        </p>
       </section>
       
-      <p class="subtitle _mb-7" v-html="article.text"></p>
+      <p v-if="article.text" 
+        class="subtitle _mb-7" 
+        v-html="article.text">
+      </p>
 
       <section class="article__body">
         <div class="txt" v-html="article.detaiL_text"></div>
       </section>
     </article>
 
+    
     <StaticFooter />
   </section>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 import BreadCrumb   from '@/components/BreadCrumb'
 import StaticFooter from '@/components/StaticFooter'
 
@@ -42,16 +50,20 @@ export default {
     ],
   },
   components: { BreadCrumb, StaticFooter },
-  async asyncData({params, store, error}) {
+  async fetch({params, store, error}) {
     try {
-      return await store.dispatch('articles/fetchArticleById', params.id)
+      await store.dispatch('articles/fetchArticleById', params.id)
     } catch(e) {
       error(e)
     }
   },
   computed: {
-    article: function() {
-      return this.$store.getters['articles/article']
+    ...mapGetters('articles', ['article']),
+    oldPage() {
+      const obj = {
+        page: this.$route.params.page
+      }
+      return obj
     }
   },
 }
@@ -80,8 +92,7 @@ export default {
 .article {
   &__header {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column-reverse;
     margin-bottom: 60px;
   }
   &__img {

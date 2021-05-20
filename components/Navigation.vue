@@ -12,7 +12,7 @@
 
       <nav class="menu__body" @click="nav.isOpen = false">
         <NuxtLink v-for="(item, i) in menuItems" :key="i"
-          :to="item.link" class="menu__item">
+          :to="{ name: item.uid, query: item.query }" class="menu__item">
             {{ item.name }}
         </NuxtLink>
   
@@ -40,10 +40,10 @@ export default {
   props: ['nav'],
   data: () => ({
     menuItems: [
-      { uid: '', name: 'Главная', link: '/' },
-      { uid: '', name: 'Блог', link: '/blog' },
-      { uid: '', name: 'Инструкция', link: '/instruction' },
-      { uid: '', name: 'WebAR', link: '/webar' },
+      { uid: 'index', name: 'Главная', link: '/', query: {} },
+      // { uid: 'blog', name: 'Блог', link: '/blog', query: {page: 0} },
+      { uid: 'instruction', name: 'Инструкция', link: '/instruction', query: {} },
+      { uid: 'webar', name: 'WebAR', link: '/webar', query: {} },
     ]
   })
 }

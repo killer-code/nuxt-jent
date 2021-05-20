@@ -10,10 +10,10 @@
 <script>
 export default {
   name: 'BreadCrumb',
-  props: { parent: String, params: String },
+  props: { parent: String, params: Object, query: Object },
   methods: {
     goToBack() {
-      this.$router.push({ name: this.parent, params: this.params })
+      this.$router.push({ name: this.parent, params: this.params, query: this.query })
     }
   }
 }

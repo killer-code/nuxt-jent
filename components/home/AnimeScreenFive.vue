@@ -100,7 +100,7 @@ export default {
         anim.x = this.app.screen.width / 2;
         anim.y = this.app.screen.height / 2;
         anim.anchor.set(.5);
-        anim.animationSpeed = .1;
+        anim.animationSpeed = .12;
         anim.scale.set(this.X, this.Y);
         anim.loop = false;
         anim.play();
@@ -166,7 +166,7 @@ export default {
         anim.x = this.app.screen.width / 2;
         anim.y = this.app.screen.height / 2;
         anim.anchor.set(.5);
-        anim.animationSpeed = .15;
+        anim.animationSpeed = .17;
         anim.scale.set(this.X, this.Y);
         anim.loop = false;
         anim.play();

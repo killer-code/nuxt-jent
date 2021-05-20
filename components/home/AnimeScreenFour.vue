@@ -1,10 +1,10 @@
 <template>
   <section class="scene _z-10" style="position: fixed;">
-    <transition name="fade">
+    <!-- <transition name="fade"> -->
       <div v-show="this.animationState.four === 'start'" class="scene-4-static">
         <img :src="require('@/assets/img/static/flackon_4_static.png')" :style="`transform: scale(${X}, ${Y})`" alt=""> <!--   -->
       </div>
-    </transition>
+    <!-- </transition> -->
   </section>
 </template>
 
