@@ -86,9 +86,9 @@ export default {
             // const flackon = new this.$PIXI.Texture.from(this.sprite_img_flackon);
             // self.sheet_flackon  = new this.$PIXI.Spritesheet(flackon, this.json_flackon);
 
-            this.sheet_lines.parse(() => {
-              this.onAssetsLoadedNext();
-            })
+            // this.sheet_lines.parse(() => {
+            //   this.onAssetsLoadedNext();
+            // })
 
             // this.sheet_flackon.parse(() => {
             //   this.onAssetsLoadedFlackon();
