@@ -57,6 +57,10 @@ export default {
       error(e)
     }
   },
+  fetchOnServer: false,
+  fetchKey() {
+    return this.$route.params.id;
+  },
   computed: {
     ...mapGetters('articles', ['article']),
     oldPage() {
@@ -66,6 +70,14 @@ export default {
       return obj
     }
   },
+  // methods: {
+  //   refresh() {
+  //     this.$fetch()
+  //   }
+  // },
+  // async mounted() {
+  //   await this.refresh();
+  // }
 }
 </script>
 

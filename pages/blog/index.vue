@@ -50,12 +50,16 @@
           v-model="page"
           prev-text="<"
           next-text=">"
+          container-class="pagination"
+          page-class="pagination__item"
+          prev-class="pagination__btn pagination__btn_prev"
+          next-class="pagination__btn pagination__btn_next"
           :hide-prev-next="true"
           :page-range="5"
           :page-count="allPages"
           :click-handler="pageChangeHandler"
-          :container-class="'pagination'"
-          :page-class="'pagination__item'"/>
+          
+          />
       </client-only>
     </section>
     
