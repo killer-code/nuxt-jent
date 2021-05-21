@@ -57,9 +57,8 @@
           :hide-prev-next="true"
           :page-range="5"
           :page-count="allPages"
-          :click-handler="pageChangeHandler"
-          
-          />
+          :click-handler="pageChangeHandler"  
+        />
       </client-only>
     </section>
     

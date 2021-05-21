@@ -1,7 +1,7 @@
 export const store = () => ({
   articles: [],
   article_count: 0,
-  article: ''
+  article: {}
 })
 
 export const mutations = {
@@ -15,7 +15,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async fetchArticles({commit}, page = 0) {
+  async fetchArticles({commit}, page = 1) {
     try {
       const res = await fetch(`https://jent.men/api/articles/?page=${page}`);
       const articleList = await res.json();
@@ -28,7 +28,7 @@ export const actions = {
   async fetchArticleById({commit}, article_id) {
     try {
       const res = await fetch(`https://jent.men/api/article/?id=${article_id}`);
-      let article = await res.json();
+      const article = await res.json();
       
       commit('updateArticle', article)
     } catch(e) {
