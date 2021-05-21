@@ -2,27 +2,27 @@
   <section class="page_article">
     <BreadCrumb :parent="'blog'" :query="oldPage" />
 
-    <article v-if="article" class="article _mb-7">
+    <article v-if="currentArticle" class="article _mb-7">
       <section class="article__banner">
-        <div v-if="article.detail_picture" class="article__img">
-            <img :src="`https://jent.men/${article.detail_picture}`" alt="">
+        <div v-if="currentArticle.detail_picture" class="article__img">
+            <img :src="`https://jent.men/${currentArticle.detail_picture}`" alt="">
         </div>
       </section>
 
       <section class="article__header">
-        <h1 class="title">{{ article.name }}</h1>
-        <p v-if="article.date" class="article__date">
-          {{ $moment(article.date, 'DD.MM.YYYY HH:mm:ss').format('DD MMM YYYY HH:mm') }}
+        <h1 class="title">{{ currentArticle.name }}</h1>
+        <p v-if="currentArticle.date" class="article__date">
+          {{ $moment(currentArticle.date, 'DD.MM.YYYY HH:mm:ss').format('DD MMM YYYY HH:mm') }}
         </p>
       </section>
       
-      <p v-if="article.text" 
+      <p v-if="currentArticle.text" 
         class="subtitle _mb-7" 
-        v-html="article.text">
+        v-html="currentArticle.text">
       </p>
 
       <section class="article__body">
-        <div class="txt" v-html="article.detaiL_text"></div>
+        <div class="txt" v-html="currentArticle.detaiL_text"></div>
       </section>
     </article>
 
@@ -39,31 +39,39 @@ import StaticFooter from '@/components/StaticFooter'
 
 export default {
   name: 'Article',
-  head: {
-    title: 'Блог компании | Jent',
-    meta: [
-      {
-        hid: 'description',
-        name: 'description',
-        content: 'Следите за новостями в сфере борьбы с импотенцией.'
-      }
-    ],
+  head() {
+    return {
+      title: `${this.currentArticle.seo.title} | Jent`,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.currentArticle.seo.description
+        }
+      ],
+    }
   },
   components: { BreadCrumb, StaticFooter },
   async fetch({params, store, error}) {
     try {
-      await store.dispatch('articles/fetchArticleById', params.id)
+      return await store.dispatch('articles/fetchArticleById', params.id)
     } catch(e) {
       error(e)
     }
   },
+  fetchKey() {
+    return this.$route.params.id;
+  },
   computed: {
     ...mapGetters('articles', ['article']),
-    oldPage() {
+    oldPage: function() {
       const obj = {
-        page: this.$route.params.page
+        page: this.$route.params.page || 1
       }
       return obj
+    },
+    currentArticle: function() {
+      return this.$store.state.articles.article
     }
   },
 }

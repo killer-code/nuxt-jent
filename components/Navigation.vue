@@ -41,7 +41,7 @@ export default {
   data: () => ({
     menuItems: [
       { uid: 'index', name: 'Главная', link: '/', query: {} },
-      // { uid: 'blog', name: 'Блог', link: '/blog', query: {page: 0} },
+      // { uid: 'blog', name: 'Блог', link: '/blog', query: {page: 1} },
       { uid: 'instruction', name: 'Инструкция', link: '/instruction', query: {} },
       { uid: 'webar', name: 'WebAR', link: '/webar', query: {} },
     ]
