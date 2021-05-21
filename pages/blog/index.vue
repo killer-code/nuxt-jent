@@ -55,7 +55,7 @@
           prev-class="pagination__btn pagination__btn_prev"
           next-class="pagination__btn pagination__btn_next"
           :hide-prev-next="true"
-          :page-range="5"
+          :page-range="3"
           :page-count="allPages"
           :click-handler="pageChangeHandler"  
         />
@@ -109,7 +109,7 @@ export default {
     }
   },
   mounted() {
-    this.setupPagination(this.allPages);
+    this.setupPagination(this.articles);
   }
 }
 </script>
