@@ -128,6 +128,39 @@ export default {
     line-height: 24px;
     color: #f36d01;
   }
+  & h3, h4 {
+    margin-bottom: 16px;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    color: #f36d01;
+  }
   & p { margin-bottom: 16px; }
+  & ul li { 
+    color: #fff; 
+    &::marker { color: #f36d01; }
+    & ul { margin-bottom: 16px; }
+  }
+  & ol {
+    counter-reset: myCounter;
+    & li {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      &::before {
+        counter-increment: myCounter;
+        content:counter(myCounter);
+        color: white;
+        background: #f36d01;
+        border-radius: 50%;
+        text-align: center;
+        margin: 5px 10px 5px -35px;
+        width: 25px;
+        height: 25px;
+        min-width: 25px;
+        min-height: 25px;
+      }
+    }
+  }
 }
 </style>
