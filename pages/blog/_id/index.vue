@@ -139,7 +139,6 @@ export default {
   & ul li { 
     color: #fff; 
     &::marker { color: #f36d01; }
-    & ul { margin-bottom: 16px; }
   }
   & ol {
     counter-reset: myCounter;
