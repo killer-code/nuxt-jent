@@ -310,6 +310,12 @@ export default {
 
         setTimeout(() => {
           this.loaded = true;
+          const blockBlocksList = document.querySelectorAll('.blocked');
+          blockBlocksList.forEach(body => {
+            if ( body.classList.contains('blocked') ) {
+              body.classList.remove('blocked')
+            }
+          })
         }, 1000)
       }, 2000)
     }
