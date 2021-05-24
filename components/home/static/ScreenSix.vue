@@ -14,21 +14,11 @@
       <section class="content page-1-content">
         <h2 class="caption-2">Попробуйте Джент</h2>
 
-        <a href="https://apteka.ru/product/dzhent-5faa2d1ed20e1c0001219169/" 
-          target="_blank"
-          class="menu__item menu__item_btn">
-            <span>Где купить</span>
-        </a>
-
         <div class="app-row _mt-7">
-          <!-- <button class="app-btn app-btn_orange"
-            @click="$router.push('/order')">
-            Заказать
-          </button> -->
-          <!-- <button class="app-btn app-btn_white"
-            @click="$router.push('/moneyback')">
-            Возврат средств
-          </button> -->
+          <button @click="open"
+            class="app-btn app-btn_orange" >
+              Где купить
+          </button>
         </div>
 
         <section class="txt_small_wrap">
@@ -58,17 +48,36 @@
 
     </div>
 
-    <!-- <StaticFooter class="footer" /> -->
+    <transition name="fade">
+      <Widget v-if="isOpenWidget" @close="close" :mode="'absolute'" />
+    </transition>
   </section>
 </template>
 
 <script>
 import Parallax from 'parallax-js'
+
+import Widget       from '@/components/ModalWidget' 
 import StaticFooter from '@/components/StaticFooter'
 
 export default {
   name: 'ScreenSix',
-  components: { StaticFooter },
+  components: { StaticFooter, Widget },
+  data: () => ({
+    isOpenWidget: false,
+  }),
+  methods: {
+    open() {
+      document.querySelector('body').classList.add('blocked')
+      document.querySelector('html').classList.add('blocked')
+      this.isOpenWidget = true;
+    },
+    close() {
+      document.querySelector('body').classList.remove('blocked')
+      document.querySelector('html').classList.remove('blocked')
+      this.isOpenWidget = false;
+    },
+  },
   mounted() {
     // Delete sprite
     const sceneSt = document.querySelector('.scene-6-static');
@@ -268,21 +277,27 @@ export default {
   }
 }
 .app-btn {
-  padding: 13px 73px;
+  display: flex;
+  justify-content: center;
+  margin-top: 35px;
+  margin-bottom: 35px;
+  padding: 5px 30px;
   background: none;
   box-sizing: border-box;
   border-radius: 8px;
+  font-size: 19px;
   color: #fff;
   cursor: pointer;
 
   &:focus { outline: none; }
   &_white  { border: 1px solid #fff; }
-  &_orange { border: 1px solid #f36d01; }
+  &_orange { color: #f36d01; border: 1px solid #f36d01; }
 
   @media screen and (max-width: 560px) {
-    padding: 10px 0;
+    padding: 5px 30px;
     width: 100%;
-    margin: 5px 0;
+    margin-top: 35px;
+    margin-bottom: 35px;
   }
 }
 .mb_d-none {

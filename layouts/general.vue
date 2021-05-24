@@ -9,7 +9,7 @@
     </section>
 
     <section>
-      <Navigation :nav="nav" />
+      <Navigation :nav="nav" @open="open" />
     </section>
 
     
@@ -77,12 +77,17 @@
       @down="scrollDown" 
       v-if="scroll != 5 && !isMob" />
 
+    <transition name="fade">
+      <Widget v-if="isOpenWidget" @close="close" />
+    </transition>
+
   </section>
 </template>
 
 <script>
 import Header     from '@/components/Header'
 import Footer     from '@/components/Footer'
+import Widget     from '@/components/ModalWidget'
 import WestSide   from '@/components/WestSide'
 import Navigation from '@/components/Navigation'
 
@@ -103,6 +108,7 @@ export default {
   components: { 
     Header, 
     Footer, 
+    Widget,
     WestSide, 
     Navigation,
 
@@ -133,6 +139,7 @@ export default {
       five: '',
       six: '',
     },
+    isOpenWidget: false,
   }),
   computed: {
     isMob: function() {
@@ -258,7 +265,17 @@ export default {
       window.addEventListener("orientationchange", () => {
         window.location.reload();
       }, false);
-    }
+    },
+    open() {
+      document.querySelector('body').classList.add('blocked')
+      document.querySelector('html').classList.add('blocked')
+      this.isOpenWidget = true;
+    },
+    close() {
+      document.querySelector('body').classList.remove('blocked')
+      document.querySelector('html').classList.remove('blocked')
+      this.isOpenWidget = false;
+    },
   },
   watch: {
     isAsideActive() {
@@ -310,6 +327,12 @@ export default {
 
         setTimeout(() => {
           this.loaded = true;
+          const blockBlocksList = document.querySelectorAll('.blocked');
+          blockBlocksList.forEach(body => {
+            if ( body.classList.contains('blocked') ) {
+              body.classList.remove('blocked')
+            }
+          })
         }, 1000)
       }, 2000)
     }

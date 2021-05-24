@@ -12,7 +12,9 @@
 
       <nav class="menu__body" @click="nav.isOpen = false">
         <NuxtLink v-for="(item, i) in menuItems" :key="i"
-          :to="{ name: item.uid, query: item.query }" class="menu__item">
+          :to="{ name: item.uid, query: item.query }" 
+          class="menu__item"
+          :class="item.class">
             {{ item.name }}
         </NuxtLink>
   
@@ -20,14 +22,14 @@
           Правовая информация
         </router-link> -->
 
-        <NuxtLink to="/how-it-works" class="menu__item mb-d">
+        <!-- <NuxtLink to="/how-it-works" class="menu__item">
           Как работает
-        </NuxtLink>
-        <a href="https://apteka.ru/product/dzhent-5faa2d1ed20e1c0001219169/" 
-          target="_blanck"
-          class="menu__item menu__item_btn mb-d">
+        </NuxtLink> -->
+
+        <button @click="$emit('open')"
+          class="menu__item_btn">
             Где купить
-        </a>
+        </button>
       </nav>
 
     </section>
@@ -40,10 +42,11 @@ export default {
   props: ['nav'],
   data: () => ({
     menuItems: [
-      { uid: 'index', name: 'Главная', link: '/', query: {} },
-      // { uid: 'blog', name: 'Блог', link: '/blog', query: {page: 1} },
-      { uid: 'instruction', name: 'Инструкция', link: '/instruction', query: {} },
-      { uid: 'webar', name: 'WebAR', link: '/webar', query: {} },
+      { uid: 'index', name: 'Главная', link: '/', query: {}, class: '' },
+      // { uid: 'blog', name: 'Блог', link: '/blog', query: {page: 1}, class: '' },
+      { uid: 'instruction', name: 'Инструкция', link: '/instruction', query: {}, class: '' },
+      { uid: 'webar', name: 'WebAR', link: '/webar', query: {}, class: '' },
+      { uid: 'how-it-works', name: 'Как работает', link: '/how-it-works', query: {}, class: 'mb-d' },
     ]
   })
 }
@@ -136,12 +139,22 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 21px;
       width: 100%;
       padding: 7px 0;
       border: solid #f36d01 1px;
+      margin-top: 32px;
       border-radius: 6px;
-      margin-top: 55px;
       color: #f36d01;
+      background: none;
+      cursor: pointer;
+      transition: all .3s ease;
+
+      &:hover { 
+        color: #fff;
+        background-color: #f36d01;
+        font-size: 23px; 
+      }
     }
   }
 }

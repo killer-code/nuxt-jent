@@ -1,5 +1,5 @@
 <template>
-  <section v-if="width > 560" class="mobile-scene-5"></section>
+  <section class="mobile-scene-5"></section>
 </template>
 
 <script>

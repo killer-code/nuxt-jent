@@ -1,7 +1,7 @@
 <template>
   <section class="wrapper-page">
     <Header :asideData="asideData" :nav="nav" class="header" />
-    <Navigation :nav="nav" />
+    <Navigation :nav="nav" @open="open" />
 
     <main class="app-page">
       <transition name="fade" mode="out-in">
@@ -15,26 +15,44 @@
       </client-only>
     </main>
 
+    <transition name="fade">
+      <Widget v-if="isOpenWidget" @close="close" />
+    </transition>
   </section>
 </template>
 
 <script>
 import Header     from '@/components/Header'
+import Widget     from '@/components/ModalWidget'
 import Navigation from '@/components/Navigation'
 import Disclaimer from '@/components/Disclaimer'
 
+
 export default {
   name: 'default',
-  components: { Header, Navigation, Disclaimer },
+  components: { Header, Navigation, Disclaimer, Widget },
   data: () => ({
     asideData: { isOpen: false, },
     nav: { isOpen: false, },
+    isOpenWidget: false,
   }),
   computed: {
     isOld: function() {
       if ( process.browser ) {
         return sessionStorage.getItem('old')
       }
+    },
+  },
+  methods: {
+    open() {
+      document.querySelector('body').classList.add('blocked')
+      document.querySelector('html').classList.add('blocked')
+      this.isOpenWidget = true;
+    },
+    close() {
+      document.querySelector('body').classList.remove('blocked')
+      document.querySelector('html').classList.remove('blocked')
+      this.isOpenWidget = false;
     },
   },
   mounted() {
