@@ -17,30 +17,11 @@
 
         <h2 class="caption-2">Попробуйте Джент</h2>
 
-        <!-- <div class="_mt-7">
-          <p class="txt txt_left">
-            Оформите заказ, чтобы получить флакон нового Джент
-            <br class="mb_d-none">
-            совершенно бесплатно. Оплатите заказ в ближайшей  
-            <br class="mb_d-none">
-            аптеке, получите специальный код и введите его
-            <br class="mb_d-none">
-            на странице «Возврат средств». Деньги поступят
-            <br class="mb_d-none">
-            на баланс мобильного телефона в течение 10 дней.
-          </p>
-        </div> -->
-
         <div class="app-row _mt-7">
-          <a href="https://apteka.ru/product/dzhent-5faa2d1ed20e1c0001219169/"
-            target="_blanck"
+          <button @click="open"
             class="app-btn app-btn_orange" >
               Где купить
-          </a>
-          <!-- <button class="app-btn app-btn_white _ml-7"
-            @click="$router.push('/moneyback')">
-            Возврат средств
-          </button> -->
+          </button>
         </div>
 
         <section class="txt_small_wrap">
@@ -69,19 +50,40 @@
       </section>
 
     </div>
+
+    <transition name="fade">
+      <Widget v-if="isOpenWidget" @close="close" :mode="'absolute'" />
+    </transition>
   </section>
 </template>
 
 <script>
+import Widget from '@/components/ModalWidget' 
 
 export default {
   name: 'ScreenSix',
+  components: { Widget },
+  data: () => ({
+    isOpenWidget: false,
+  }),
   computed: {
     isMobile: function() {
       if ( process.browser ) {
         return window.innerWidth < 561
       }
     }
+  },
+  methods: {
+    open() {
+      document.querySelector('body').classList.add('blocked')
+      document.querySelector('html').classList.add('blocked')
+      this.isOpenWidget = true;
+    },
+    close() {
+      document.querySelector('body').classList.remove('blocked')
+      document.querySelector('html').classList.remove('blocked')
+      this.isOpenWidget = false;
+    },
   },
   mounted() {
     if ( this.isMobile ) {
@@ -301,5 +303,12 @@ export default {
   height: 400px;
   margin-left: -5px;
   margin-right: -45px;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s ease;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>
