@@ -1,20 +1,15 @@
 <template>
   <section class="blog">
     <h1 class="title">Блог посвященный Jent&reg;</h1>
-    <p class="subtitle">
-      Джент — инновационный продукт в формате спрея для приема
-      внутрь. Для получения мощной эрекции достаточно двух нажатий, препарат
-      действует через 10 минут. В одном флаконе содержится 32 дозы.
-    </p>
 
     <section class="article-list _mb-7" v-if="articles && articles.length">
-      <article v-for="item in articles" :key="item.id" class="article _mb-7">
-        <section class="article__body">
-          <div v-if="item.picture" class="article__img column">
-            <img :src="`https://jent.men/${item.picture}`" alt="">
-          </div>
+      <article v-for="item in articles" :key="item.id" 
+        class="article"
+        @click="readMore(item)"
+      >
+        <section class="article__body_main">
           
-          <section class="_w-100 column _space">
+          <section class="_w-100 _space">
             <section>
               <section class="article__header _mb-7">
                 <h2 class="article__title">
@@ -44,23 +39,23 @@
           
         </section>
       </article>
-
-      <client-only>
-        <Paginate 
-          v-model="page"
-          prev-text="<"
-          next-text=">"
-          container-class="pagination"
-          page-class="pagination__item"
-          prev-class="pagination__btn pagination__btn_prev"
-          next-class="pagination__btn pagination__btn_next"
-          :hide-prev-next="true"
-          :page-range="3"
-          :page-count="allPages"
-          :click-handler="pageChangeHandler"  
-        />
-      </client-only>
     </section>
+
+    <client-only>
+      <Paginate 
+        v-model="page"
+        prev-text="<"
+        next-text=">"
+        container-class="pagination"
+        page-class="pagination__item"
+        prev-class="pagination__btn pagination__btn_prev"
+        next-class="pagination__btn pagination__btn_next"
+        :hide-prev-next="true"
+        :page-range="3"
+        :page-count="allPages"
+        :click-handler="pageChangeHandler"  
+      />
+    </client-only>
     
     <StaticFooter />
   </section>
@@ -108,6 +103,14 @@ export default {
       return pages;
     }
   },
+  methods: {
+    readMore(item) {
+      this.$router.push({
+        name: 'blog-id',
+        params: { id: item.id, page: this.$route.query.page ? this.$route.query.page : 0 } 
+      })
+    }
+  },
   mounted() {
     this.setupPagination(this.articles);
   }
@@ -115,6 +118,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.article-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 30px;
+
+  @media screen and ( max-width: 1024px ) { grid-template-columns: 1fr 1fr; }
+  @media screen and ( max-width: 560px ) { grid-template-columns: 1fr; }
+}
 ._w-100 { width: 100%; }
 ._space {
   display: flex;
@@ -140,8 +151,24 @@ export default {
 }
 .article {
   background: #16171d;
+  border-color: #16171d;
+  border-width: 2px;
+  border-style: solid;
   border-radius: 6px;
   padding: 25px 52px;
+  cursor: pointer;
+  transition: all .5s ease;
+  box-sizing: border-box;
+
+  &:hover {
+    border-color: rgba(255,255,255,.2);
+    border-width: 2px;
+    border-style: solid;
+
+    & .article__title { color: #f36d01; }
+    & .article__date { color: #fff; }
+    & .article__btn_more { color: #f36d01; }
+  }
 
   @media screen and ( max-width: 780px ) { padding: 15px 10px; }
 
@@ -157,9 +184,10 @@ export default {
   }
 
   &__title {
-    font-weight: bold;
+    font-weight: 700;
     font-size: 21px;
     line-height: 150%;
+    transition: all .3s ease;
   }
 
   &__date {
@@ -167,6 +195,7 @@ export default {
     color: rgba(255,255,255,.8);
     font-weight: 400;
     line-height: 15px;
+    transition: all .3s ease;
   }
 
   &__preview-txt {
@@ -206,9 +235,9 @@ export default {
     }
   }
 
-  &__body { 
-    display: flex; 
-    margin: 0 -15px;
+  &__body_main { 
+    display: flex;
+    height: 100%;
 
     @media screen and ( max-width: 780px ) { flex-direction: column; }
   }
