@@ -1,6 +1,7 @@
 @import 'base/fonts.scss';
 @import 'base/reset.scss';
 @import 'base/base.scss';
+@import 'components/_blog.scss';
 
 .v-main { flex: auto !important; }
 .theme--light.v-toolbar.v-sheet {

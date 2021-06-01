@@ -1,5 +1,5 @@
 <template>
-  <section class="page_article">
+  <section class="page_article article_detail">
     <BreadCrumb :parent="'blog'" :query="oldPage" />
 
     <article v-if="currentArticle" class="article _mb-7">
@@ -74,19 +74,39 @@ export default {
       return this.$store.state.articles.article
     }
   },
+  methods: {
+    addTitleToImages() {
+      const imgArr = document.querySelectorAll('img');
+      imgArr.forEach(img => {
+        const title = img.getAttribute('title');
+        let small = document.createElement('small');
+        small.className = 'img-txt';
+        small.innerText = title;
+        img.after(small)
+      })
+    },
+  },
+  mounted() {
+    this.addTitleToImages();
+  }
 }
 </script>
 
 <style lang="scss" scoped>
+.article_detail {
+  max-width: 1024px;
+  margin: auto;
+}
 .page_article {
   display: flex;
   flex-direction: column;
+  width: 100%;
   min-height: calc(100vh - 250px);
 }
 .title {
-  font-weight: 500;
+  font-weight: 600;
   font-size: 42px;
-  line-height: 130%;
+  line-height: 55px;
 }
 .subtitle {
   font-weight: 500;
@@ -100,8 +120,13 @@ export default {
 .article {
   &__header {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     margin-bottom: 60px;
+  }
+  &__date {
+    font-size: 12px;
+    line-height: 16px;
+    color: #818181;
   }
   &__img {
     height: 400px;
@@ -114,51 +139,6 @@ export default {
       height: 100%;
       object-fit: cover;
       border-radius: 14px;
-    }
-  }
-}
-</style>
-
-<style lang="scss">
-.article__body {
-  & h2 {
-    margin-bottom: 16px;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 24px;
-    color: #f36d01;
-  }
-  & h3, h4 {
-    margin-bottom: 16px;
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 21px;
-    color: #f36d01;
-  }
-  & p { margin-bottom: 16px; }
-  & ul li { 
-    color: #fff; 
-    &::marker { color: #f36d01; }
-  }
-  & ol {
-    counter-reset: myCounter;
-    & li {
-      list-style: none;
-      display: flex;
-      align-items: center;
-      &::before {
-        counter-increment: myCounter;
-        content:counter(myCounter);
-        color: white;
-        background: #f36d01;
-        border-radius: 50%;
-        text-align: center;
-        margin: 5px 10px 5px -35px;
-        width: 25px;
-        height: 25px;
-        min-width: 25px;
-        min-height: 25px;
-      }
     }
   }
 }
