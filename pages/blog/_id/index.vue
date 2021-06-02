@@ -107,6 +107,11 @@ export default {
   font-weight: 600;
   font-size: 42px;
   line-height: 55px;
+
+  @media screen and ( max-width: 560px ) {
+    font-size: 28px;
+    line-height: 130%;
+  }
 }
 .subtitle {
   font-weight: 500;
