@@ -15,14 +15,16 @@
 
     <CanvasBackground :loaded="loaded" />
 
-    <full-page ref="static_fullpage" id="static-fullpage" 
-      :skip-init="true" :options="options">
-        <router-view :asideData="asideData" 
-          :screen="scroll" 
-          :skip-init="true" 
-          :loaded="loaded" 
-        />
-    </full-page>
+    <client-only>
+      <full-page ref="static_fullpage" id="static-fullpage" 
+        :skip-init="true" :options="options">
+          <router-view :asideData="asideData" 
+            :screen="scroll" 
+            :skip-init="true" 
+            :loaded="loaded" 
+          />
+      </full-page>
+    </client-only>
 
     <client-only>
       <transition name="fade" mode="out-in">

@@ -44,13 +44,11 @@
     <client-only>
       <Paginate 
         v-model="page"
-        prev-text="<"
-        next-text=">"
+        hide-prev-next
+        prev-text=""
+        next-text=""
         container-class="pagination"
         page-class="pagination__item"
-        prev-class="pagination__btn pagination__btn_prev"
-        next-class="pagination__btn pagination__btn_next"
-        :hide-prev-next="true"
         :page-range="3"
         :page-count="allPages"
         :click-handler="pageChangeHandler"  
@@ -142,6 +140,11 @@ export default {
   font-size: 42px;
   line-height: 130%;
   margin-bottom: 60px;
+
+  @media screen and ( max-width: 560px ) {
+    font-size: 28px;
+    line-height: 130%;
+  }
 }
 .subtitle {
   font-weight: 500;
@@ -168,6 +171,25 @@ export default {
     & .article__title { color: #f36d01; }
     & .article__date { color: #fff; }
     & .article__btn_more { color: #f36d01; }
+  }
+
+  & .article__btn_more {
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 1px;
+      top: 100%;
+      border-radius: 6px;
+      background-color: #f36d01;
+      transition: all .5s ease;
+    }
+    &:hover {
+      &::before {
+        width: 100%;
+      }
+    }
   }
 
   @media screen and ( max-width: 780px ) { padding: 15px 10px; }

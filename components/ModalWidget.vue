@@ -95,7 +95,7 @@ export default {
   /* Минимально поддерживаемые размеры виджета: 320x520. */
   width: 100%;
   height: 100vh;
-  max-height: 768px;
+  max-height: 568px;
   outline: 1px solid #e0e0e0;
 }
 
