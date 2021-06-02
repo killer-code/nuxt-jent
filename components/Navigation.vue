@@ -28,7 +28,10 @@
 
         <button @click="$emit('open')"
           class="menu__item_btn">
-            Где купить
+            <img class="btn_uteka" 
+              :src="require('@/assets/img/uteka-logo.svg')" 
+              alt="uteka"
+            >
         </button>
       </nav>
 
@@ -139,21 +142,17 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 21px;
       width: 100%;
-      padding: 7px 0;
-      border: solid #f36d01 1px;
+      padding: 13px 0;
       margin-top: 32px;
       border-radius: 6px;
-      color: #f36d01;
-      background: none;
+      border: 0;
+      background-color: rgba(255, 255, 255, 0.1);
       cursor: pointer;
       transition: all .3s ease;
 
       &:hover { 
-        color: #fff;
         background-color: #f36d01;
-        font-size: 23px; 
       }
     }
   }
@@ -184,6 +183,8 @@ export default {
   color: #f36d01;
   pointer-events: none;
 }
+
+.btn_uteka { width: 117px}
 
 .slide-left2right-enter-active, 
 .slide-left2right-leave-active {

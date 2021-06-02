@@ -18,9 +18,13 @@
         <h2 class="caption-2">Попробуйте Джент</h2>
 
         <div class="app-row _mt-7">
+          <p class="where-buy">Где купить?</p>
           <button @click="open"
             class="app-btn app-btn_orange" >
-              Где купить
+              <img class="btn_uteka" 
+                :src="require('@/assets/img/uteka-logo.svg')" 
+                alt="uteka"
+              >
           </button>
         </div>
 
@@ -229,22 +233,27 @@ export default {
     }
   }
 }
+.where-buy {
+  font-size: 21px;
+  line-height: 160%;
+}
 .app-btn {
   display: flex;
   justify-content: center;
-  margin-top: 35px;
+  margin-top: 15px;
   margin-bottom: 35px;
-  padding: 5px 30px;
-  background: none;
+  padding: 13px 70px;
+  background-color: rgba(255, 255, 255, 0.1);
   box-sizing: border-box;
   border-radius: 8px;
-  font-size: 19px;
-  color: #fff;
   cursor: pointer;
+  transition: all .3s ease;
+
+  &:hover { background-color: #f36d01; }
 
   &:focus { outline: none; }
   &_white  { border: 1px solid #fff; }
-  &_orange { color: #f36d01; border: 1px solid #f36d01; }
+  &_orange { border: 0; }
 
   @media screen and (max-width: 560px) {
     padding: 5px 30px;
