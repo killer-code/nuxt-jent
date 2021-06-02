@@ -46,7 +46,7 @@ export default {
   data: () => ({
     menuItems: [
       { uid: 'index', name: 'Главная', link: '/', query: {}, class: '' },
-      // { uid: 'blog', name: 'Блог', link: '/blog', query: {page: 1}, class: '' },
+      { uid: 'blog', name: 'Блог', link: '/blog', query: {page: 1}, class: '' },
       { uid: 'instruction', name: 'Инструкция', link: '/instruction', query: {}, class: '' },
       { uid: 'webar', name: 'WebAR', link: '/webar', query: {}, class: '' },
       { uid: 'how-it-works', name: 'Как работает', link: '/how-it-works', query: {}, class: 'mb-d' },

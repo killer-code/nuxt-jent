@@ -13,6 +13,10 @@
         <NuxtLink to="/how-it-works" class="nav__link">
           Как работает
         </NuxtLink>
+
+        <NuxtLink to="/blog?page=1" class="nav__link">
+          Блог
+        </NuxtLink>
       </nav>
     </div>
   </header>
