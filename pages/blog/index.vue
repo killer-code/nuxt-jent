@@ -173,6 +173,25 @@ export default {
     & .article__btn_more { color: #f36d01; }
   }
 
+  & .article__btn_more {
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 1px;
+      top: 100%;
+      border-radius: 6px;
+      background-color: #f36d01;
+      transition: all .5s ease;
+    }
+    &:hover {
+      &::before {
+        width: 100%;
+      }
+    }
+  }
+
   @media screen and ( max-width: 780px ) { padding: 15px 10px; }
 
   &__header {
