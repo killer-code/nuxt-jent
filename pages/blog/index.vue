@@ -55,7 +55,9 @@
       />
     </client-only>
     
-    <StaticFooter />
+    <section class="_mt-7">
+      <StaticFooter />
+    </section>
   </section>
 </template>
 
