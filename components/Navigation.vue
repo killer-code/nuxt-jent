@@ -6,7 +6,10 @@
 
         <button class="app-btn"
           @click="nav.isOpen = false">
-            <img src="@/assets/img/icon-close.svg" alt="" />
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 27L27 9" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9 9L27 27" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
         </button>
       </div>
 
@@ -28,10 +31,7 @@
 
         <button @click="$emit('open')"
           class="menu__item_btn">
-            <img class="btn_uteka" 
-              :src="require('@/assets/img/uteka-logo.svg')" 
-              alt="uteka"
-            >
+            Где купить
         </button>
       </nav>
 
@@ -60,10 +60,19 @@ export default {
   background: none;
   border: none;
   cursor: pointer;
+  transition: all .3s ease;
+
+  & svg path { transition: all .3s ease; }
+  &:hover { 
+    & svg path {
+      stroke: #f36d01 !important;
+      fill: #f36d01 !important;
+    }
+  }
   &:focus { outline: none; }
 
   @media screen and (max-width: 560px) {
-    img {
+    svg {
       width: 24px;
       height: 24px;
     }
@@ -146,6 +155,8 @@ export default {
       padding: 13px 0;
       margin-top: 32px;
       border-radius: 6px;
+      color: #fff;
+      font-size: 21px;
       border: 0;
       background-color: rgba(255, 255, 255, 0.1);
       cursor: pointer;

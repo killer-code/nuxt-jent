@@ -33,8 +33,7 @@ export default {
     '~/plugins/moment',
     '~/plugins/parallax',
     '~/plugins/element-ui',
-    
-    { src: '~/plugins/pixi', mode: 'client' },
+
     { src: '~/plugins/fullpage', mode: 'client' },
     { src: '~/plugins/paginate', mode: 'client' },
   ],

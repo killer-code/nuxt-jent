@@ -9,10 +9,10 @@
       <section class="scene-6-static">
         <img class="img-jent_static-1" 
           data-depth-x="-0.05" data-depth-y="-0.05"
-          src="@/assets/img/sprites/scene_06/static/static-back-2-min.png">
+          src="@/assets/img/static/static-back-2-min.png">
         <img class="img-jent_static-1" 
           data-depth-x="-0.1" data-depth-y="-0.1"
-          src="@/assets/img/sprites/scene_06/static/static-back-1-min.png">
+          src="@/assets/img/static/static-back-1-min.png">
       </section>
 
       <section class="content page-1-content">
