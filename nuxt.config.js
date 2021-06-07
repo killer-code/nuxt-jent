@@ -26,6 +26,7 @@ export default {
   css: [
     '~/assets/scss/styles.scss',
     'element-ui/lib/theme-chalk/index.css',
+    '@splidejs/splide/dist/css/themes/splide-default.min.css'
   ],
 
   plugins: [
@@ -33,8 +34,8 @@ export default {
     '~/plugins/moment',
     '~/plugins/parallax',
     '~/plugins/element-ui',
-    
-    { src: '~/plugins/pixi', mode: 'client' },
+
+    { src: '~/plugins/slider', mode: 'client' },
     { src: '~/plugins/fullpage', mode: 'client' },
     { src: '~/plugins/paginate', mode: 'client' },
   ],

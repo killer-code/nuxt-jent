@@ -2,16 +2,16 @@
   <section class="page_article article_detail">
     <BreadCrumb :parent="'blog'" :query="oldPage" />
 
-    <article v-if="currentArticle" class="article _mb-7">
-      <section class="article__banner">
-        <div v-if="currentArticle.detail_picture" class="article__img">
+    <article v-if="currentArticle" class="detail-article _mb-7">
+      <section class="detail-article__banner">
+        <div v-if="currentArticle.detail_picture" class="detail-article__img">
             <img :src="`https://jent.men/${currentArticle.detail_picture}`" alt="">
         </div>
       </section>
 
-      <section class="article__header">
+      <section class="detail-article__header">
         <h1 class="title">{{ currentArticle.name }}</h1>
-        <p v-if="currentArticle.date" class="article__date">
+        <p v-if="currentArticle.date" class="detail-article__date">
           {{ $moment(currentArticle.date, 'DD.MM.YYYY HH:mm:ss').format('DD MMM YYYY HH:mm') }}
         </p>
       </section>
@@ -21,8 +21,14 @@
         v-html="currentArticle.text">
       </p>
 
-      <section class="article__body">
+      <section class="detail-article__body">
         <div class="txt" v-html="currentArticle.detaiL_text"></div>
+      </section>
+
+      <section v-if="currentArticle.recommended_articles && 
+        currentArticle.recommended_articles.length" 
+        class="recomendation">
+          <Slider :articles="currentArticle.recommended_articles" :title="'Читайте также'" />
       </section>
     </article>
 
@@ -35,6 +41,7 @@
 import { mapGetters } from "vuex";
 
 import BreadCrumb   from '@/components/BreadCrumb'
+import Slider       from '@/components/Slider'
 import StaticFooter from '@/components/StaticFooter'
 
 export default {
@@ -51,7 +58,7 @@ export default {
       ],
     }
   },
-  components: { BreadCrumb, StaticFooter },
+  components: { BreadCrumb, Slider, StaticFooter },
   async fetch({params, store, error}) {
     try {
       return await store.dispatch('articles/fetchArticleById', params.id)
@@ -122,7 +129,7 @@ export default {
   font-size: 18px;
   line-height: 150%;
 }
-.article {
+.detail-article {
   &__header {
     display: flex;
     flex-direction: column;

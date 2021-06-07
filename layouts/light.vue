@@ -13,10 +13,10 @@
     </section>
     
 
-    <CanvasBackground :loaded="loaded" />
+    <CanvasBackground v-if="loaded" />
 
     <client-only>
-      <full-page ref="static_fullpage" id="static-fullpage" 
+      <full-page ref="fullpage" id="fullpage" 
         :skip-init="true" :options="options">
           <router-view :asideData="asideData" 
             :screen="scroll" 
@@ -28,8 +28,8 @@
 
     <client-only>
       <transition name="fade" mode="out-in">
-        <Disclaimer v-show="!isOld && $refs.static_fullpage" 
-          :scrollpage="$refs.static_fullpage" />
+        <Disclaimer v-show="!isOld && $refs.fullpage" 
+          :scrollpage="$refs.fullpage" />
       </transition>
     </client-only>
     
@@ -117,7 +117,7 @@ export default {
       setTimeout(() => { this.process = true; }, 100)
     },
     scrollDown() {
-      this.$refs.static_fullpage.api.moveSectionDown();
+      this.$refs.fullpage.api.moveSectionDown();
     },
     open() {
       document.querySelector('body').classList.add('blocked')
@@ -133,46 +133,10 @@ export default {
   watch: {
     isAsideActive() {
       if ( this.isAsideActive ) {
-        this.$refs.static_fullpage.api.setAllowScrolling(false);
+        this.$refs.fullpage.api.setAllowScrolling(false);
       } else {
-        this.$refs.static_fullpage.api.setAllowScrolling(true);
+        this.$refs.fullpage.api.setAllowScrolling(true);
       }
-    }
-  },
-  created() {
-    if ( process.browser ) {
-      window.addEventListener('load', e => {
-        let refs = this.$refs
-        if ( window.innerWidth > 560 ) {
-          let fullpageEnabled = document.documentElement.classList.contains('fp-enabled')
-          
-          if (!fullpageEnabled) {
-            refs.static_fullpage.init()
-          } else {
-            document.documentElement.classList.remove('fp-enabled')
-            refs.static_fullpage.destroy('all')
-            refs.static_fullpage.init()
-          }
-        } else {
-          const element = document.querySelector('.fp-enabled');
-          if ( element ) {
-            element.classList.remove('fp-enabled');
-            document.querySelector('body').style.overflow = 'auto';
-          }
-          document.documentElement.classList.remove('fp-enabled')
-          refs.static_fullpage.destroy('all')
-        }
-
-        setTimeout(() => {
-          this.loaded = true;
-        }, 1000)
-      })
-    }
-
-    if ( !this.loaded ) {
-      setTimeout(() => {
-        this.loaded = true;
-      }, 7000)
     }
   },
   mounted() {
@@ -183,7 +147,32 @@ export default {
     })
     setTimeout(() => {
       this.loaded = true;
-    }, 500);
+    }, 300);
+
+    if ( process.browser ) {
+      setTimeout(() => {
+        let refs = this.$refs
+        if ( window.innerWidth > 560 ) {
+          let fullpageEnabled = document.documentElement.classList.contains('fp-enabled')
+          
+          if (!fullpageEnabled) {
+            refs.fullpage.init()
+          } else {
+            document.documentElement.classList.remove('fp-enabled')
+            refs.fullpage.destroy('all')
+            refs.fullpage.init()
+          }
+        } else {
+          const element = document.querySelector('.fp-enabled');
+          if ( element ) {
+            element.classList.remove('fp-enabled');
+            document.querySelector('body').style.overflow = 'auto';
+          }
+          document.documentElement.classList.remove('fp-enabled')
+          refs.fullpage.destroy('all')
+        }
+      }, 500)
+    }
   }
 }
 </script>

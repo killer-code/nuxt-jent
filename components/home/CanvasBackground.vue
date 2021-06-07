@@ -9,9 +9,7 @@
 
 export default {
   name: 'CanvasBackground',
-  props: {
-    scroll: Number,
-  },
+  props: { loaded: Boolean, },
   data: () => ({
     particles: [],
 
@@ -216,11 +214,11 @@ export default {
     },  
   },
   watch: {
-    scroll() {
-      if ( this.scroll !== 0 || this.scroll !== 1 || this.scroll !== 5 ) {
-        cancelAnimationFrame(this.animateParticles);
-      }
-    }
+    // scroll() {
+    //   if ( this.scroll !== 0 || this.scroll !== 1 || this.scroll !== 5 ) {
+    //     cancelAnimationFrame(this.animateParticles);
+    //   }
+    // }
   }
 }
 </script>
