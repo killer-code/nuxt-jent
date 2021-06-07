@@ -1,40 +1,37 @@
 <template>
-<article 
-        class="article"
-        @click="readMore(item)"
-      >
-  <section class="article__body_main">
-    
-    <section class="_w-100 _space">
-      <section>
-        <section class="article__header _mb-7">
-          <h2 class="article__title">
-            {{ item.name }}
-          </h2>
+  <article class="article" @click="readMore(item)">
+    <section class="article__body_main">
+      
+      <section class="_w-100 _space">
+        <section>
+          <section class="article__header _mb-7">
+            <h2 class="article__title">
+              {{ item.name }}
+            </h2>
 
-          <small v-if="item.date" class="article__date">
-            {{ $moment(item.date, 'DD.MM.YYYY HH:mm:ss').format('DD MMM YYYY HH:mm') }}
-          </small>
+            <small v-if="item.date" class="article__date">
+              {{ $moment(item.date, 'DD.MM.YYYY HH:mm:ss').format('DD MMM YYYY HH:mm') }}
+            </small>
+          </section>
+
+          <div class="txt article__preview-txt" v-html="item.text"></div>
+
         </section>
 
-        <div class="txt article__preview-txt" v-html="item.text"></div>
-
+        <section class="article__footer">
+          <nuxt-link :to="{
+            name: 'blog-id', 
+            params: { id: item.id, page: $route.query.page ? $route.query.page : 0 }
+          }">
+            <button class="article__btn article__btn_more">
+                <span>Читать</span>
+            </button>
+          </nuxt-link>
+        </section>
       </section>
-
-      <section class="article__footer">
-        <nuxt-link :to="{
-          name: 'blog-id', 
-          params: { id: item.id, page: $route.query.page ? $route.query.page : 0 }
-        }">
-          <button class="article__btn article__btn_more">
-              <span>Читать еще</span>
-          </button>
-        </nuxt-link>
-      </section>
+      
     </section>
-    
-  </section>
-</article>
+  </article>
 </template>
 
 <script>
@@ -124,6 +121,7 @@ export default {
     color: rgba(255,255,255,.8);
     font-weight: 400;
     line-height: 15px;
+    margin-top: 21px;
     transition: all .3s ease;
   }
 
@@ -146,7 +144,7 @@ export default {
 
   &__btn {
     background: none;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 500;
     border: 0;
     cursor: pointer;
