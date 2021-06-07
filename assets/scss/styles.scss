@@ -1,7 +1,9 @@
 @import 'base/fonts.scss';
 @import 'base/reset.scss';
 @import 'base/base.scss';
+
 @import 'components/_blog.scss';
+@import 'components/_slider.scss';
 @import 'components/_pagination.scss';
 
 .v-main { flex: auto !important; }
