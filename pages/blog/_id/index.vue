@@ -94,9 +94,34 @@ export default {
         img.after(small)
       })
     },
+    scrollToBlock(anchorList) {
+      if ( anchorList && anchorList.length ) {
+        anchorList.forEach(anchor => {
+          anchor.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const blockID = e.target.getAttribute('href').slice(1);
+            const block = document.querySelector(`#${blockID}`) || document.querySelector(`[name=${blockID}]`);
+
+            const box = block.getBoundingClientRect();
+            const coordY = box.top + pageYOffset;
+
+            window.scrollTo({
+              top: coordY - window.innerHeight / 6,
+              left: 0,
+              behavior: 'smooth'
+            });
+          })
+        })
+      }
+    }
   },
   mounted() {
     this.addTitleToImages();
+    const anchorList = document.querySelectorAll('.js-anchor');
+    
+    this.scrollToBlock(anchorList);
   }
 }
 </script>
