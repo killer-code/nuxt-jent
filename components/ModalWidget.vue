@@ -95,8 +95,12 @@ export default {
   /* Минимально поддерживаемые размеры виджета: 320x520. */
   width: 100%;
   height: 100vh;
-  max-height: 568px;
+  max-height: calc(60vh);
   outline: 1px solid #e0e0e0;
+
+  @media (max-width: 560px) {
+    max-height: calc(100vh - 150px);
+  }
 }
 
 .uteka-widget iframe {

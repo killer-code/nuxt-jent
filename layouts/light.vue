@@ -27,7 +27,7 @@
     </client-only>
 
     <client-only>
-      <transition name="fade" mode="out-in">
+      <transition name="fade-age" mode="in-out">
         <Disclaimer v-show="!isOld && $refs.fullpage" 
           :scrollpage="$refs.fullpage" />
       </transition>
@@ -203,6 +203,13 @@ export default {
   transition: opacity .3s ease;
 }
 .fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+.fade-age-enter-active, .fade-leave-active {
+  transition: opacity .1s ease;
+}
+.fade-age-enter, .fade-leave-to {
   opacity: 0;
 }
 </style>
