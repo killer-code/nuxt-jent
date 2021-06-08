@@ -22,17 +22,25 @@ export const actions = {
       
       commit('updateArticles', articleList) 
     } catch(e) {
-      throw e
+      error({
+        statusCode: 404,
+      })
     }
   },
   async fetchArticleById({commit}, article_id) {
     try {
       const res = await fetch(`https://jent.men/api/article/?id=${article_id}`);
       const article = await res.json();
-      
+
+      if ( article.statusCode === '404' ) {
+        return error({ statusCode: 404 })
+      }
+
       commit('updateArticle', article)
     } catch(e) {
-      throw e
+      error({
+        statusCode: 404,
+      })
     }
   }
 }

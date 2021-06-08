@@ -1,5 +1,5 @@
 <template>
-  <section class="screen-six">
+  <section class="screen-six" v-if="error.statusCode === 404">
     <div class="container">
       
       <router-link to="/" class="top-logo">
@@ -70,6 +70,7 @@ import StaticFooter from '@/components/StaticFooter'
 
 export default {
   name: 'Err404',
+  props: {error: Object},
   title: '404 | Jent',
   layout: 'empty',
   components: { StaticFooter },

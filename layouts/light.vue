@@ -63,7 +63,7 @@ export default {
     Navigation,
 
     Disclaimer,
-    CanvasBackground
+    CanvasBackground,
   },
   data: () => ({
     process: false,

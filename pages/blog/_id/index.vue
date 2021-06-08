@@ -63,7 +63,9 @@ export default {
     try {
       return await store.dispatch('articles/fetchArticleById', params.id)
     } catch(e) {
-      error(e)
+      error({
+        statusCode: 404,
+      })
     }
   },
   fetchKey() {

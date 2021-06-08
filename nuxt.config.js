@@ -6,6 +6,7 @@ export default {
     scrollBehavior (to, from, savedPosition) {
       return { x: 0, y: 0 }
     },
+    base: '/',
   },
 
   head: {
@@ -47,9 +48,22 @@ export default {
   modules: [
     '@nuxtjs/axios',
     'nuxt-fullpage.js',
+    [
+      '@rkaliev/nuxtjs-yandex-metrika',
+      {
+        id: '74138308',
+        accurateTrackBounce:true,
+        trackLinks:true,
+        webvisor: true,
+        clickmap: true,
+        debug: true,
+        noJS: true,
+      },
+    ]
+    
   ],
 
   axios: {},
-
-  build: {}
+  build: {},
+  generate: { fallback: true }
 }
