@@ -1,5 +1,5 @@
 <template>
-  <section class="widget" :style="mode === 'absolute' ? 'position: absolute' : ''">
+  <section class="widget">
     <div class="container">
       <div class="uteka-widget">
         <!-- Шапка виджета -->
@@ -21,11 +21,6 @@
 
               <!-- Заголовок -->
               <div class="uteka-widget-header__title"></div>
-
-              <!-- Крестик -->
-              <a href="#" @click="$emit('close')" 
-                class="uteka-widget-header__close">
-              </a>
             </div>
           </div>
         </div>
@@ -33,13 +28,18 @@
         <iframe allow="geolocation"></iframe>
       </div>
     </div>
+
+    <StaticFooter />
+
   </section>
 </template>
 
 <script>
+import StaticFooter from '@/components/StaticFooter'
+
 export default {
-  name: 'Widget',
-  props: { mode: String },
+  name: 'Uteka',
+  components: { StaticFooter },
   mounted() {
     if ( process.browser ) {
       window.uteka = window.uteka || {}
@@ -77,3 +77,5 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped></style>

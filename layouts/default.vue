@@ -15,22 +15,18 @@
       </client-only>
     </main>
 
-    <transition name="fade">
-      <Widget v-if="isOpenWidget" @close="close" />
-    </transition>
   </section>
 </template>
 
 <script>
 import Header     from '@/components/Header'
-import Widget     from '@/components/ModalWidget'
 import Navigation from '@/components/Navigation'
 import Disclaimer from '@/components/Disclaimer'
 
 
 export default {
   name: 'default',
-  components: { Header, Navigation, Disclaimer, Widget },
+  components: { Header, Navigation, Disclaimer },
   data: () => ({
     asideData: { isOpen: false, },
     nav: { isOpen: false, },
@@ -45,14 +41,7 @@ export default {
   },
   methods: {
     open() {
-      document.querySelector('body').classList.add('blocked')
-      document.querySelector('html').classList.add('blocked')
-      this.isOpenWidget = true;
-    },
-    close() {
-      document.querySelector('body').classList.remove('blocked')
-      document.querySelector('html').classList.remove('blocked')
-      this.isOpenWidget = false;
+      this.$router.push('/where-buy/')
     },
   },
   mounted() {

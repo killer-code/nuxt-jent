@@ -44,35 +44,20 @@
       </section>
 
     </div>
-
-    <transition name="fade">
-      <Widget v-if="isOpenWidget" @close="close" :mode="'absolute'" />
-    </transition>
   </section>
 </template>
 
 <script>
 import Parallax from 'parallax-js'
 
-import Widget       from '@/components/ModalWidget' 
 import StaticFooter from '@/components/StaticFooter'
 
 export default {
   name: 'ScreenSix',
-  components: { StaticFooter, Widget },
-  data: () => ({
-    isOpenWidget: false,
-  }),
+  components: { StaticFooter },
   methods: {
     open() {
-      document.querySelector('body').classList.add('blocked')
-      document.querySelector('html').classList.add('blocked')
-      this.isOpenWidget = true;
-    },
-    close() {
-      document.querySelector('body').classList.remove('blocked')
-      document.querySelector('html').classList.remove('blocked')
-      this.isOpenWidget = false;
+      this.$router.push('/where-buy/')
     },
   },
   mounted() {
