@@ -10,6 +10,7 @@
 
     <client-only>
       <Paginate 
+        v-if="allPages > 1"
         v-model="page"
         hide-prev-next
         prev-text=""
