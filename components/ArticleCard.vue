@@ -20,9 +20,9 @@
 
         <section class="article__footer">
           <nuxt-link :to="{
-            name: 'blog-id', 
-            params: { id: item.id, page: $route.query.page ? $route.query.page : 0 }
-          }">
+            name: 'blog-code', 
+            params: { code: item.code, id: item.id, page: $route.query.page ? $route.query.page : 0 }
+          }" @click="sessionStorage.setItem('post_id', item.id)">
             <button class="article__btn article__btn_more">
                 <span>Читать</span>
             </button>
@@ -40,9 +40,10 @@ export default {
   props: { item: Object },
   methods: {
     readMore(item) {
+      sessionStorage.setItem('post_id', item.id)
       this.$router.push({
-        name: 'blog-id',
-        params: { id: item.id, page: this.$route.query.page ? this.$route.query.page : 0 } 
+        name: 'blog-code',
+        params: { code: item.code, id: item.id, page: this.$route.query.page ? this.$route.query.page : 0 } 
       })
     }
   }

@@ -61,7 +61,10 @@ export default {
   components: { BreadCrumb, Slider, StaticFooter },
   async fetch({params, store, error}) {
     try {
-      return await store.dispatch('articles/fetchArticleById', params.id)
+      return await store.dispatch(
+        'articles/fetchArticleById', 
+        params.id || sessionStorage.getItem('post_id')
+      )
     } catch(e) {
       error({
         statusCode: 404,

@@ -42,7 +42,7 @@ export default {
 
   components: true,
 
-  buildModules: [],
+  buildModules: ['@/modules/generator'],
 
   modules: [
     '@nuxtjs/axios',
@@ -58,8 +58,26 @@ export default {
         debug: true,
         noJS: true,
       },
-    ]
-    
+    ],
+    '@nuxtjs/sitemap',
+    '@nuxtjs/redirect-module'
+  ],
+
+  sitemap: {
+    hostname: 'https://jent.men',
+    gzip: true,
+    defaults: {
+      changefreq: 'daily',
+      priority: 1,
+      lastmod: new Date(),
+    },
+  },
+
+  redirect: [
+    {
+      from: '^(\\/[^\\?]*[^\\/])(\\?.*)?$',
+      to: '$1/$2',
+    },
   ],
 
   axios: {},
