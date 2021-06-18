@@ -63,7 +63,7 @@ export default {
     try {
       return await store.dispatch(
         'articles/fetchArticleById', 
-        params.id || sessionStorage.getItem('post_id')
+        params.code
       )
     } catch(e) {
       error({
@@ -72,7 +72,7 @@ export default {
     }
   },
   fetchKey() {
-    return this.$route.params.id;
+    return this.$route.params.code;
   },
   computed: {
     ...mapGetters('articles', ['article']),

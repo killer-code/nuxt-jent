@@ -27,9 +27,9 @@ export const actions = {
       })
     }
   },
-  async fetchArticleById({commit}, article_id) {
+  async fetchArticleById({commit}, article_code) {
     try {
-      const res = await fetch(`https://jent.men/api/article/?id=${article_id}`);
+      const res = await fetch(`https://jent.men/api/article/?code=${article_code}`);
       const article = await res.json();
 
       if ( article.statusCode === '404' ) {
