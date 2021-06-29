@@ -1,5 +1,5 @@
 <template>
-  <section class="screen-six">
+  <section class="screen-six" v-if="error.statusCode === 404">
     <div class="container">
       
       <router-link to="/" class="top-logo">
@@ -9,10 +9,7 @@
       <section class="scene-6-static">
         <img class="img-jent_static-1" 
           data-depth-x="-0.05" data-depth-y="-0.05"
-          src="@/assets/img/static/static-back-2-min.png">
-        <img class="img-jent_static-1" 
-          data-depth-x="-0.1" data-depth-y="-0.1"
-          src="@/assets/img/static/static-back-1-min.png">
+          src="@/assets/img/static/static-back-2-old-min.png">
       </section>
 
       <section class="content page-1-content">
@@ -70,6 +67,7 @@ import StaticFooter from '@/components/StaticFooter'
 
 export default {
   name: 'Err404',
+  props: {error: Object},
   title: '404 | Jent',
   layout: 'empty',
   components: { StaticFooter },

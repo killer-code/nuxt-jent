@@ -25,8 +25,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 import ScreenOne   from '@/components/home/static/ScreenOne'
 import ScreenTwo   from '@/components/home/static/ScreenTwo'
 import ScreenThree from '@/components/home/static/ScreenThree'
@@ -36,18 +34,6 @@ import ScreenSix   from '@/components/home/static/ScreenSix'
 
 export default {
   name: 'HomeStatic',
-  head: {
-    title: 'Спрей для улучшения мужской потенции джент | Jent',
-    meta: [
-      {
-        hid: 'description',
-        name: 'description',
-        content: 'Джент — это инновационное средство для усиления потенции в удобном ' +
-          'формате спрея для приема внутрь. Джент воздействует на естественные механизмы ' + 
-          'возникновения эрекции и начинаетдействовать уже через 10 минут.'
-      }
-    ],
-  },
   layout: 'light',
   props: ['asideData', 'screen', 'loaded'],
   components: { 

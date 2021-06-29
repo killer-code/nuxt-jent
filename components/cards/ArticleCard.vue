@@ -20,8 +20,8 @@
 
         <section class="article__footer">
           <nuxt-link :to="{
-            name: 'blog-id', 
-            params: { id: item.id, page: $route.query.page ? $route.query.page : 0 }
+            name: 'blog-code', 
+            params: { code: item.code, page: $route.query.page ? $route.query.page : 0 }
           }">
             <button class="article__btn article__btn_more">
                 <span>Читать</span>
@@ -41,8 +41,8 @@ export default {
   methods: {
     readMore(item) {
       this.$router.push({
-        name: 'blog-id',
-        params: { id: item.id, page: this.$route.query.page ? this.$route.query.page : 0 } 
+        name: 'blog-code',
+        params: { code: item.code, page: this.$route.query.page ? this.$route.query.page : 0 } 
       })
     }
   }
@@ -61,11 +61,12 @@ export default {
   border-width: 2px;
   border-style: solid;
   border-radius: 6px;
-  padding: 25px 52px;
+  padding: 25px;
   cursor: pointer;
-  transition: all .5s ease;
   box-sizing: border-box;
+  transition: all .5s ease;
   height: 100%;
+  width: 99.9%;
 
   &:hover {
     border-color: rgba(255,255,255,.2);

@@ -9,28 +9,24 @@
       </transition>
 
       <client-only>
-        <transition name="fade" mode="out-in">
+        <transition name="fade-age" mode="in-out">
           <Disclaimer v-show="!isOld" />
         </transition>
       </client-only>
     </main>
 
-    <transition name="fade">
-      <Widget v-if="isOpenWidget" @close="close" />
-    </transition>
   </section>
 </template>
 
 <script>
 import Header     from '@/components/Header'
-import Widget     from '@/components/ModalWidget'
 import Navigation from '@/components/Navigation'
 import Disclaimer from '@/components/Disclaimer'
 
 
 export default {
   name: 'default',
-  components: { Header, Navigation, Disclaimer, Widget },
+  components: { Header, Navigation, Disclaimer },
   data: () => ({
     asideData: { isOpen: false, },
     nav: { isOpen: false, },
@@ -45,14 +41,7 @@ export default {
   },
   methods: {
     open() {
-      document.querySelector('body').classList.add('blocked')
-      document.querySelector('html').classList.add('blocked')
-      this.isOpenWidget = true;
-    },
-    close() {
-      document.querySelector('body').classList.remove('blocked')
-      document.querySelector('html').classList.remove('blocked')
-      this.isOpenWidget = false;
+      this.$router.push('/where-buy/')
     },
   },
   mounted() {
@@ -61,7 +50,7 @@ export default {
         document.querySelector('body').classList.remove('blocked')
         document.querySelector('html').classList.remove('blocked')
       }, 500)
-    }
+    };
   }
 };
 </script>
@@ -97,6 +86,12 @@ export default {
   transition: opacity .3s ease;
 }
 .fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+.fade-age-enter-active, .fade-leave-active {
+  transition: opacity .1s ease;
+}
+.fade-age-enter, .fade-leave-to {
   opacity: 0;
 }
 </style>

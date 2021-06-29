@@ -27,7 +27,7 @@
     </client-only>
 
     <client-only>
-      <transition name="fade" mode="out-in">
+      <transition name="fade-age" mode="in-out">
         <Disclaimer v-show="!isOld && $refs.fullpage" 
           :scrollpage="$refs.fullpage" />
       </transition>
@@ -37,16 +37,12 @@
       @down="scrollDown" 
       v-if="scroll != 5 && !isMob" />
 
-    <transition name="fade">
-      <Widget v-if="isOpenWidget" @close="close" />
-    </transition>
   </section>
 </template>
 
 <script>
 import Header     from '@/components/Header'
 import Footer     from '@/components/Footer'
-import Widget     from '@/components/ModalWidget'
 import WestSide   from '@/components/WestSide'
 import Navigation from '@/components/Navigation'
 
@@ -55,15 +51,26 @@ import Disclaimer       from '@/components/Disclaimer'
 
 export default {
   name: 'light',
+  head: {
+    meta: [
+      {
+        name: 'yandex-verification',
+        content: '9dd8058eabe76a44'
+      },
+      {
+        name: 'google-site-verification',
+        content: 'KltkO6fyk-kxfrTSfYFC-Xbi94dhfZ_2BrpMcKRR7W8'
+      }
+    ],
+  },
   components: { 
     Header, 
     Footer, 
-    Widget,
     WestSide, 
     Navigation,
 
     Disclaimer,
-    CanvasBackground
+    CanvasBackground,
   },
   data: () => ({
     process: false,
@@ -74,7 +81,6 @@ export default {
     },
     nav: { isOpen: false, },
     scroll: 0,
-    isOpenWidget: false,
   }),
   computed: {
     options: function() {
@@ -120,14 +126,7 @@ export default {
       this.$refs.fullpage.api.moveSectionDown();
     },
     open() {
-      document.querySelector('body').classList.add('blocked')
-      document.querySelector('html').classList.add('blocked')
-      this.isOpenWidget = true;
-    },
-    close() {
-      document.querySelector('body').classList.remove('blocked')
-      document.querySelector('html').classList.remove('blocked')
-      this.isOpenWidget = false;
+      this.$router.push('/where-buy/')
     },
   },
   watch: {
@@ -203,6 +202,13 @@ export default {
   transition: opacity .3s ease;
 }
 .fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+.fade-age-enter-active, .fade-leave-active {
+  transition: opacity .1s ease;
+}
+.fade-age-enter, .fade-leave-to {
   opacity: 0;
 }
 </style>

@@ -4,12 +4,13 @@
 
     <section class="article-list _mb-7" v-if="articles && articles.length">
       <div v-for="item in articles" :key="item.id">
-        <ArticleCard :item="item" />
+        <MainArticleCard :item="item" />
       </div>
     </section>
 
     <client-only>
       <Paginate 
+        v-if="allPages > 1"
         v-model="page"
         hide-prev-next
         prev-text=""
@@ -30,7 +31,7 @@
 import paginationMixin from '@/mixins/pagination.mixin'
 
 import StaticFooter from '@/components/StaticFooter'
-import ArticleCard from '@/components/ArticleCard'
+import MainArticleCard from '@/components/cards/MainArticleCard'
 
 export default {
   name: 'Blog',
@@ -45,7 +46,7 @@ export default {
     ],
   },
   mixins: [paginationMixin],
-  components: { StaticFooter, ArticleCard },
+  components: { StaticFooter, MainArticleCard },
   data: () => ({
     page: 0,
   }),

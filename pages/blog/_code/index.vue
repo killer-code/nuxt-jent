@@ -61,13 +61,18 @@ export default {
   components: { BreadCrumb, Slider, StaticFooter },
   async fetch({params, store, error}) {
     try {
-      return await store.dispatch('articles/fetchArticleById', params.id)
+      return await store.dispatch(
+        'articles/fetchArticleById', 
+        params.code
+      )
     } catch(e) {
-      error(e)
+      error({
+        statusCode: 404,
+      })
     }
   },
   fetchKey() {
-    return this.$route.params.id;
+    return this.$route.params.code;
   },
   computed: {
     ...mapGetters('articles', ['article']),
@@ -92,9 +97,34 @@ export default {
         img.after(small)
       })
     },
+    scrollToBlock(anchorList) {
+      if ( anchorList && anchorList.length ) {
+        anchorList.forEach(anchor => {
+          anchor.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const blockID = e.target.getAttribute('href').slice(1);
+            const block = document.querySelector(`#${blockID}`) || document.querySelector(`[name=${blockID}]`);
+
+            const box = block.getBoundingClientRect();
+            const coordY = box.top + pageYOffset;
+
+            window.scrollTo({
+              top: coordY - window.innerHeight / 6,
+              left: 0,
+              behavior: 'smooth'
+            });
+          })
+        })
+      }
+    }
   },
   mounted() {
     this.addTitleToImages();
+    const anchorList = document.querySelectorAll('.js-anchor');
+    
+    this.scrollToBlock(anchorList);
   }
 }
 </script>
