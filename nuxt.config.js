@@ -6,17 +6,24 @@ export default {
     scrollBehavior (to, from, savedPosition) {
       return { x: 0, y: 0 }
     },
+    trailingSlash: true,
   },
 
   head: {
-    title: 'Jent',
+    title: 'Спрей для улучшения мужской потенции джент | Jent',
     htmlAttrs: {
       lang: 'ru'
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
+      { 
+        hid: 'description', 
+        name: 'description', 
+        content: 'Джент — это инновационное средство для усиления потенции в удобном ' +
+        'формате спрея для приема внутрь. Джент воздействует на естественные механизмы ' + 
+        'возникновения эрекции и начинаетдействовать уже через 10 минут.'
+      },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.svg' }
@@ -35,7 +42,7 @@ export default {
     '~/plugins/parallax',
     '~/plugins/element-ui',
 
-    { src: '~/plugins/slider', mode: 'client' },
+    { src: '~/plugins/slider',   mode: 'client' },
     { src: '~/plugins/fullpage', mode: 'client' },
     { src: '~/plugins/paginate', mode: 'client' },
   ],
@@ -46,6 +53,7 @@ export default {
 
   modules: [
     '@nuxtjs/axios',
+    '@nuxtjs/redirect-module',
     'nuxt-fullpage.js',
     [
       '@rkaliev/nuxtjs-yandex-metrika',
@@ -55,12 +63,11 @@ export default {
         trackLinks:true,
         webvisor: true,
         clickmap: true,
-        debug: true,
+        debug: false,
         noJS: true,
       },
     ],
     '@nuxtjs/sitemap',
-    '@nuxtjs/redirect-module'
   ],
 
   sitemap: {

@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import ArticleCard from '@/components/ArticleCard'
+import ArticleCard from '@/components/cards/ArticleCard'
 
 export default {
   name: 'Slider',
@@ -44,7 +44,7 @@ export default {
         rewind : true,
         perPage: this.width > 768 ? 2 : 1,
         perMove: 2,
-        gap    : '1rem',
+        gap    : '15px',
         pagination: this.isPagination,
       }
     }

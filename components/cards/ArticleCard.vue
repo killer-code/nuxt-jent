@@ -61,11 +61,12 @@ export default {
   border-width: 2px;
   border-style: solid;
   border-radius: 6px;
-  padding: 25px 52px;
+  padding: 25px;
   cursor: pointer;
-  transition: all .5s ease;
   box-sizing: border-box;
+  transition: all .5s ease;
   height: 100%;
+  width: 99.9%;
 
   &:hover {
     border-color: rgba(255,255,255,.2);

@@ -51,6 +51,18 @@ import Disclaimer       from '@/components/Disclaimer'
 
 export default {
   name: 'light',
+  head: {
+    meta: [
+      {
+        name: 'yandex-verification',
+        content: '9dd8058eabe76a44'
+      },
+      {
+        name: 'google-site-verification',
+        content: 'KltkO6fyk-kxfrTSfYFC-Xbi94dhfZ_2BrpMcKRR7W8'
+      }
+    ],
+  },
   components: { 
     Header, 
     Footer, 

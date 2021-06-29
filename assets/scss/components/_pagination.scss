@@ -11,7 +11,7 @@
     align-items: center;
     font-size: 21px;
     font-weight: 600;
-    color: #fff;
+    color: #818181;
     margin: 0 2.5px;
     padding: 2.5px;
     border-radius: 5px;
@@ -20,7 +20,8 @@
 
     &:hover { color: #f36d01; }
     &.active {
-      color: #818181;
+      pointer-events: none;
+      color: #fff;
     }
   }
 }
