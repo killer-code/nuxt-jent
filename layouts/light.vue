@@ -32,6 +32,8 @@
           :scrollpage="$refs.fullpage" />
       </transition>
     </client-only>
+
+    <HomePrerenderTxt />
     
     <Footer :scroll="scroll" 
       @down="scrollDown" 
@@ -48,6 +50,8 @@ import Navigation from '@/components/Navigation'
 
 import CanvasBackground from '@/components/home/CanvasBackground'
 import Disclaimer       from '@/components/Disclaimer'
+
+import HomePrerenderTxt from '@/components/seo/HomePrerenderTxt'
 
 export default {
   name: 'light',
@@ -71,6 +75,7 @@ export default {
 
     Disclaimer,
     CanvasBackground,
+    HomePrerenderTxt,
   },
   data: () => ({
     process: false,

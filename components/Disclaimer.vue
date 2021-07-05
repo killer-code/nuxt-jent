@@ -32,7 +32,10 @@ export default {
 
         setTimeout(() => {
           const main = document.querySelector('.main');
-          main.removeChild(document.querySelector('.disclaimer'));
+
+          if ( main ) {
+            main.removeChild(document.querySelector('.disclaimer'));
+          }
         })
       }
     }

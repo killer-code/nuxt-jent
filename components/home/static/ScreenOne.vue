@@ -13,14 +13,14 @@
 
       <section class="content page-1-content">
         <div class="start">
-          <h1 class="caption-2">
+          <h2 class="caption-2">
             <strong class="caption-2 caption-2_gradient">
               Быстрее ваших<br class="mb_d-none">
             </strong>
             <strong class="caption-2 caption-2_gradient">
                желаний
             </strong>
-          </h1>
+          </h2>
 
           <div class="txt _mt-7">
             <p>

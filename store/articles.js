@@ -1,4 +1,4 @@
-export const store = () => ({
+export const state = () => ({
   articles: [],
   article_count: 0,
   article: {}
@@ -15,12 +15,12 @@ export const mutations = {
 }
 
 export const actions = {
-  async fetchArticles({commit}, page = 1) {
+  async fetchArticles({commit}, page) {
     try {
       const res = await fetch(`https://jent.men/api/articles/?page=${page}`);
       const articleList = await res.json();
-      
-      commit('updateArticles', articleList) 
+
+      commit('updateArticles', articleList)
     } catch(e) {
       error({
         statusCode: 404,
