@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import paginationMixin from '@/mixins/pagination.mixin'
 
 import StaticFooter from '@/components/StaticFooter'
@@ -51,19 +52,20 @@ export default {
     page: 0,
   }),
   watchQuery: ['page'],
-  async fetch({store, error, query}) {
+  async asyncData({store, error, query}) {
     try {
-      await store.dispatch('articles/fetchArticles', query.page)
+      return await store.dispatch('articles/fetchArticles', query.page)
     } catch(e) {
       error(e)
     }
   },
   computed: {
+    ...mapGetters('articles', ['articles', 'article_count']),
     articles: function() {
-      return this.$store.getters['articles/articles']
+      return this.$store.state.articles.articles
     },
     article_count: function() {
-      return this.$store.getters['articles/article_count']
+      return this.$store.state.articles.article_count
     },
     allPages: function() {
       const pages = Math.ceil(this.article_count / 10);
@@ -72,6 +74,14 @@ export default {
   },
   mounted() {
     this.setupPagination(this.articles);
+  },
+  watch: {
+    async page() {
+      if ( this.page ) {
+        console.log(this.page)
+        return await this.$store.dispatch('articles/fetchArticles', this.page)
+      }
+    }
   }
 }
 </script>

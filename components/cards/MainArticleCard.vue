@@ -76,7 +76,6 @@ export default {
     border-style: solid;
 
     & .article__preview > img {
-      filter: inherit;
       transform: scale(1.05);
     }
 
@@ -119,7 +118,6 @@ export default {
       border-radius: 6px 6px 0 0;
       object-fit: cover;
       transform: scale(1);
-      filter: blur(1px);
       transition: all .5s ease;
     }
   }

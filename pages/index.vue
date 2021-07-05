@@ -54,6 +54,21 @@ export default {
       document.querySelector('body').classList.remove('blocked')
       document.querySelector('html').classList.remove('blocked')
     }, 500)
+  },
+  methods: {
+    /**
+     * @param {string} eventName
+     */
+    sendYandexMetrikaEvent(eventName) {
+      this.$yandexMetrika.reachGoal(eventName);
+    },
+  },
+  mounted() {
+    if (process.browser) {
+      window.onNuxtReady((e) => {
+        this.sendYandexMetrikaEvent(e);
+      })
+    }
   }
 }
 </script>

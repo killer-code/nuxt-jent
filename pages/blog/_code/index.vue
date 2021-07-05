@@ -1,5 +1,7 @@
 <template>
-  <section class="page_article article_detail">
+  <section v-if="currentArticle"
+    class="page_article article_detail"
+  >
     <BreadCrumb :parent="'blog'" :query="oldPage" />
 
     <article v-if="currentArticle" class="detail-article _mb-7">
@@ -28,7 +30,8 @@
       <section v-if="currentArticle.recommended_articles && 
         currentArticle.recommended_articles.length" 
         class="recomendation">
-          <Slider :articles="currentArticle.recommended_articles" :title="'Читайте также'" />
+          <Slider :articles="currentArticle.recommended_articles" 
+            :title="'Читайте также'" />
       </section>
     </article>
 
@@ -38,7 +41,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 
 import BreadCrumb   from '@/components/BreadCrumb'
 import Slider       from '@/components/Slider'
