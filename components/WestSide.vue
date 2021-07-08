@@ -1,7 +1,7 @@
 <template>
   <transition name="slide-left2right">
     <section class="westside" v-show="asideData.isOpen">
-      <aside v-if="asideData.description && asideData.title"
+      <aside v-show="asideData.description && asideData.title"
         class="aside_wrap">
         <section class="app-header">
           <h3 class="caption-3">
@@ -18,7 +18,7 @@
             :key="txt">{{ txt }}</p>
         </section>
           
-        <section class="aside__footer" v-if="asideData.link">
+        <section class="aside__footer" v-show="asideData.link">
           <router-link :to="`/${asideData.link}`">
             <button class="aside__btn">
               <p class="aside__more">Читать полностью</p>

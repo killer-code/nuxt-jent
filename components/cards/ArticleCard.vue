@@ -9,7 +9,7 @@
               {{ item.name }}
             </h2>
 
-            <small v-if="item.date" class="article__date">
+            <small v-show="item.date" class="article__date">
               {{ $moment(item.date, 'DD.MM.YYYY HH:mm:ss').format('DD MMM YYYY HH:mm') }}
             </small>
           </section>

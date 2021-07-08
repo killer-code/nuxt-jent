@@ -2,7 +2,7 @@
   <section class="blog">
     <h1 class="title">Блог посвященный Jent&reg;</h1>
 
-    <section class="article-list _mb-7" v-if="articles && articles.length">
+    <section class="article-list _mb-7" v-show="articles && articles.length">
       <div v-for="item in articles" :key="item.id">
         <MainArticleCard :item="item" />
       </div>
@@ -10,7 +10,7 @@
 
     <client-only>
       <Paginate 
-        v-if="allPages > 1"
+        v-show="allPages > 1"
         v-model="page"
         hide-prev-next
         prev-text=""
@@ -45,6 +45,12 @@ export default {
         content: 'Следите за новостями в сфере борьбы с импотенцией.'
       }
     ],
+    link: [
+      {
+        rel: 'canonical',
+        href: 'https://jent.men/blog/'
+      }
+    ],
   },
   mixins: [paginationMixin],
   components: { StaticFooter, MainArticleCard },
@@ -68,7 +74,7 @@ export default {
       return this.$store.state.articles.article_count
     },
     allPages: function() {
-      const pages = Math.ceil(this.article_count / 10);
+      const pages = Math.ceil(this.article_count / 12);
       return pages;
     }
   },
@@ -78,7 +84,6 @@ export default {
   watch: {
     async page() {
       if ( this.page ) {
-        console.log(this.page)
         return await this.$store.dispatch('articles/fetchArticles', this.page)
       }
     }

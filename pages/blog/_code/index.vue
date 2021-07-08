@@ -1,24 +1,24 @@
 <template>
-  <section v-if="currentArticle"
+  <section v-show="currentArticle"
     class="page_article article_detail"
   >
     <BreadCrumb :parent="'blog'" :query="oldPage" />
 
-    <article v-if="currentArticle" class="detail-article _mb-7">
+    <article v-show="currentArticle" class="detail-article _mb-7">
       <section class="detail-article__banner">
-        <div v-if="currentArticle.detail_picture" class="detail-article__img">
+        <div v-show="currentArticle.detail_picture" class="detail-article__img">
             <img :src="`https://jent.men/${currentArticle.detail_picture}`" alt="">
         </div>
       </section>
 
       <section class="detail-article__header">
         <h1 class="title">{{ currentArticle.name }}</h1>
-        <p v-if="currentArticle.date" class="detail-article__date">
+        <p v-show="currentArticle.date" class="detail-article__date">
           {{ $moment(currentArticle.date, 'DD.MM.YYYY HH:mm:ss').format('DD MMM YYYY HH:mm') }}
         </p>
       </section>
       
-      <p v-if="currentArticle.text" 
+      <p v-show="currentArticle.text" 
         class="subtitle _mb-7" 
         v-html="currentArticle.text">
       </p>
@@ -27,12 +27,14 @@
         <div class="txt" v-html="currentArticle.detaiL_text"></div>
       </section>
 
-      <section v-if="currentArticle.recommended_articles && 
-        currentArticle.recommended_articles.length" 
-        class="recomendation">
-          <Slider :articles="currentArticle.recommended_articles" 
-            :title="'Читайте также'" />
-      </section>
+      <client-only>
+        <section v-show="currentArticle.recommended_articles && 
+          currentArticle.recommended_articles.length" 
+          class="recomendation">
+            <Slider :articles="currentArticle.recommended_articles" 
+              :title="'Читайте также'" />
+        </section>
+      </client-only>
     </article>
 
     
