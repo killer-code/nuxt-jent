@@ -4,7 +4,7 @@
       
       <section class="_w-100 _space">
         <section>
-          <div v-if="item.picture" class="article__preview">
+          <div v-show="item.picture" class="article__preview">
             <img :src="`https://jent.men/${item.picture}`" alt="">
           </div>
           
@@ -13,7 +13,7 @@
               {{ item.name }}
             </h2>
 
-            <small v-if="item.date" class="article__date">
+            <small v-show="item.date" class="article__date">
               {{ $moment(item.date, 'DD.MM.YYYY HH:mm:ss').format('DD MMM YYYY HH:mm') }}
             </small>
           </section>

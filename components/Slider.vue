@@ -1,15 +1,15 @@
 <template>
-  <section class="_mb-7 _mt-7">
+  <client-only>
+    <section class="_mb-7 _mt-7">
+      <h2 class="_mb-7">{{ title }}</h2>
 
-    <h2 class="_mb-7">{{ title }}</h2>
-
-    <splide :options="options">
-      <splide-slide v-for="article in articles" :key="article.id">
-        <ArticleCard :item="article" />
-      </splide-slide>
-    </splide>
-
-  </section>
+      <splide :options="options">
+        <splide-slide v-for="article in articles" :key="article.id">
+          <ArticleCard :item="article" />
+        </splide-slide>
+      </splide>
+    </section>
+  </client-only>
 </template>
 
 <script>

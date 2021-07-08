@@ -1,5 +1,7 @@
 <template>
   <section class="main">
+    <!-- <noscript><div><img src="https://mc.yandex.ru/watch/74138308" style="position:absolute; left:-9999px;" alt="" /></div></noscript> -->
+    
     <section class="west">
       <WestSide :asideData="asideData" />
     </section>
@@ -13,7 +15,7 @@
     </section>
     
 
-    <CanvasBackground v-if="loaded" />
+    <CanvasBackground v-show="loaded" />
 
     <client-only>
       <full-page ref="fullpage" id="fullpage" 
@@ -37,7 +39,7 @@
     
     <Footer :scroll="scroll" 
       @down="scrollDown" 
-      v-if="scroll != 5 && !isMob" />
+      v-show="scroll != 5 && !isMob" />
 
   </section>
 </template>
@@ -175,7 +177,21 @@ export default {
           document.documentElement.classList.remove('fp-enabled')
           refs.fullpage.destroy('all')
         }
-      }, 500)
+      }, 500);
+
+      /*
+       * Yandex Metric
+      */
+      (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+      (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+      ym(74138308, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor:true
+      });
     }
   }
 }

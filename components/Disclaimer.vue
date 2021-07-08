@@ -1,5 +1,5 @@
 <template>
-  <section class="disclaimer" v-if="showModal">
+  <section class="disclaimer" v-show="showModal">
     <section class="disclaimer__content disclaimer__content_center">
       <img src="@/assets/img/logo_color.svg" class="disclaimer__img" alt="">
       <p>Информация на сайте предназначена для врачей.</p>

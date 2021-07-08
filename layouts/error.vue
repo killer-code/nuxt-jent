@@ -1,5 +1,5 @@
 <template>
-  <section class="screen-six" v-if="error.statusCode === 404">
+  <section class="screen-six" v-show="error.statusCode === 404">
     <div class="container">
       
       <router-link to="/" class="top-logo">
