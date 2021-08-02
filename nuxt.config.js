@@ -2,6 +2,7 @@ export default {
   target: 'static',
 
   router: {
+    base: '/',
     linkExactActiveClass: 'active-link',
     scrollBehavior (to, from, savedPosition) {
       return { x: 0, y: 0 }
@@ -49,11 +50,10 @@ export default {
 
   components: true,
 
-  buildModules: ['@/modules/generator'],
+  buildModules: [],
 
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/redirect-module',
     'nuxt-fullpage.js',
     [
       '@rkaliev/nuxtjs-yandex-metrika',
@@ -67,24 +67,6 @@ export default {
         noJS: true,
       },
     ],
-    '@nuxtjs/sitemap',
-  ],
-
-  sitemap: {
-    hostname: 'https://jent.men',
-    gzip: true,
-    defaults: {
-      changefreq: 'daily',
-      priority: 1,
-      lastmod: new Date(),
-    },
-  },
-
-  redirect: [
-    {
-      from: '^(\\/[^\\?]*[^\\/])(\\?.*)?$',
-      to: '$1/$2',
-    },
   ],
 
   axios: {},

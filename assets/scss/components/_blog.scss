@@ -30,6 +30,16 @@
     line-height: 24px;
     margin-bottom: 16px; 
   }
+  & a:not([class]) { 
+    color: #f36d01;
+    text-decoration: underline;
+    transition: color .3s ease;
+
+    &:hover {
+      text-decoration: none;
+      color: #e46904;
+    }
+  }
   & .txt > div > div { 
     display: flex;
     flex-direction: column;
